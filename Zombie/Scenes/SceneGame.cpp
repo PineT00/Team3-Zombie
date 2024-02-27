@@ -217,6 +217,17 @@ void SceneGame::UpdateNextWave(float dt)
 
 void SceneGame::UpdateGameOver(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		Release();
+		Init();
+
+		score = 0;
+		wave = 1;
+		zombieNum = wave * 2;
+		Enter();
+		SetStatus(Status::Game);
+	}
 }
 
 void SceneGame::UpdatePause(float dt)
