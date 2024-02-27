@@ -36,6 +36,7 @@ protected:
 	int score = 0;
 	int wave = 1;
 	int zombieNum = 2;
+	int zombieCount = 2;
 
 public:
 	SceneGame(SceneIds id);

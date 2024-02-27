@@ -91,6 +91,7 @@ void SceneGame::Enter()
 	FRAMEWORK.GetWindow().setMouseCursorVisible(false);
 	SetStatus(Status::Awake);
 	wave = 1;
+	zombieCount = 2;
 
 	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
 	sf::Vector2f centerPos = windowSize * 0.5f;
@@ -210,7 +211,8 @@ void SceneGame::UpdateNextWave(float dt)
 		SetStatus(Status::Game);
 
 		++wave;
-		zombieNum = wave * 2;
+		zombieCount *= 2;
+		zombieNum = zombieCount;
 
 		player->SetPosition({ 0.f, 0.f });
 		tileMap->Set({ wave * 10, wave * 10 }, { 50.f, 50.f });
@@ -240,7 +242,8 @@ void SceneGame::UpdateGameOver(float dt)
 
 		score = 0;
 		wave = 1;
-		zombieNum = wave * 2;
+		zombieCount = 2;
+		zombieNum = zombieCount;
 		Enter();
 		SetStatus(Status::Awake);
 	}
