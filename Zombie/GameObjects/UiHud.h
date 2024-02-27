@@ -27,7 +27,7 @@ protected:
 
 	TextGo textMessage;
 
-	sf::Vector2f gaugeHpSize = { 500.f, 100.f };
+	sf::Vector2f gaugeHpSize = { 500.f, 50.f };
 
 public:
 	UiHud(const std::string& name = "");

@@ -12,6 +12,7 @@ class SceneGame : public Scene
 public:
 	enum class Status
 	{
+		Awake,
 		Game,
 		NextWave,
 		GameOver,
@@ -19,12 +20,13 @@ public:
 	};
 
 protected:
-	Status currStatus = Status::Game;
+	Status currStatus = Status::Awake;
 
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
 	UiHud* uiHud = nullptr;
 	SpriteGo* crosshair = nullptr;
+	SpriteGo* title = nullptr;
 
 	std::list<GameObject*> zombieList;
 	std::list<GameObject*> itemList;
@@ -58,6 +60,7 @@ public:
 	void LateUpdate(float dt) override;
 	void FixedUpdate(float dt) override;
 
+	void UpdateAwake(float dt);
 	void UpdateGame(float dt);
 	void UpdateNextWave(float dt);
 	void UpdateGameOver(float dt);

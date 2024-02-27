@@ -66,7 +66,12 @@ void SceneGame::Init()
 	crosshair->SetTexture("graphics/crosshair.png");
 	crosshair->SetOrigin(Origins::MC);
 	AddGo(crosshair, Layers::Ui);
-	
+
+	//배경 이미지
+	title = new SpriteGo("Title Img");
+	title->SetTexture("graphics/background.png");
+	AddGo(title, Ui);
+
 	// UI
 	uiHud = new UiHud("UI HUD");
 	AddGo(uiHud, Layers::Ui);
@@ -84,7 +89,7 @@ void SceneGame::Enter()
 	Scene::Enter();
 
 	FRAMEWORK.GetWindow().setMouseCursorVisible(false);
-	SetStatus(Status::Game);
+	SetStatus(Status::Awake);
 	wave = 1;
 
 	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
@@ -137,6 +142,9 @@ void SceneGame::Update(float dt)
 
 	switch (currStatus)
 	{
+	case Status::Awake:
+		UpdateAwake(dt);
+		break;
 	case Status::Game:
 		UpdateGame(dt);
 		break;
@@ -160,6 +168,14 @@ void SceneGame::LateUpdate(float dt)
 void SceneGame::FixedUpdate(float dt)
 {
 	Scene::FixedUpdate(dt);
+}
+
+void SceneGame::UpdateAwake(float dt)
+{
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		SetStatus(Status::Game);
+	}
 }
 
 void SceneGame::UpdateGame(float dt)
@@ -226,13 +242,13 @@ void SceneGame::UpdateGameOver(float dt)
 		wave = 1;
 		zombieNum = wave * 2;
 		Enter();
-		SetStatus(Status::Game);
+		SetStatus(Status::Awake);
 	}
 }
 
 void SceneGame::UpdatePause(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 	{
 		SetStatus(Status::Game);
 	}
@@ -250,7 +266,14 @@ void SceneGame::SetStatus(Status newStatus)
 
 	switch (currStatus)
 	{
+	case Status::Awake:
+		title->SetActive(true);
+		uiHud->SetMessage("Press Enter to Start!");
+		uiHud->SetMessageActive(true);
+		FRAMEWORK.SetTimeScale(0.f);
+		break;
 	case Status::Game:
+		title->SetActive(false);
 		uiHud->SetMessage("");
 		uiHud->SetMessageActive(false);
 		FRAMEWORK.SetTimeScale(1.f);
