@@ -43,6 +43,12 @@ void TextGo::SetFont(const sf::Font& font)
 	text.setFont(font);
 }
 
+void TextGo::SetOutline(const sf::Color& color, float thick)
+{
+	text.setOutlineColor(color);
+	text.setOutlineThickness(thick);
+}
+
 void TextGo::SetPosition(const sf::Vector2f& pos)
 {
 	position = pos;

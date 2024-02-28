@@ -82,9 +82,12 @@ void SceneGame::Init()
 
 	sf::Font& font = RES_MGR_FONT.Get("fonts/zombiecontrol.ttf");
 	textTitle = new TextGo("Title Text");
-	textTitle->Set(font, "Press Enter to Start!", 80, sf::Color::White);
+	textTitle->Set(font, "Press Enter to Start!", 80, sf::Color::Red);
+	textTitle->SetOutline(sf::Color::Black, 3.f);
+
 	textTitle->SetOrigin(Origins::MC);
 	textTitle->SetPosition((sf::Vector2f)FRAMEWORK.GetWindowSize() * 0.5f);
+
 	AddGo(textTitle, Ui);
 
 	Scene::Init();
@@ -303,6 +306,7 @@ void SceneGame::SetStatus(Status newStatus)
 		textTitle->SetActive(true);
 		upgradeMenu->SetActive(false);
 		uiHud->SetActive(false);
+		SOUND_MGR.PlayBgm("sound/bossFight.mp3", false);
 		FRAMEWORK.SetTimeScale(0.f);
 		break;
 	case Status::Game:
@@ -333,7 +337,6 @@ void SceneGame::SetStatus(Status newStatus)
 			}
 			file.close();
 		}
-		
 		uiHud->SetMessage("Game Over!");
 		uiHud->SetMessageActive(true);
 		FRAMEWORK.SetTimeScale(0.f);
