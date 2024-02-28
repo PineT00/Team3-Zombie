@@ -32,6 +32,8 @@ void Zombie::Init()
 	SpriteGo::Init();
 	SetTexture(textureId);
 	SetOrigin(Origins::MC);
+
+	hasHitBox = true;
 }
 
 void Zombie::Release()
@@ -128,10 +130,13 @@ void Zombie::OnDie()
 	effectBlood->SetRotation(Utils::RandomRange(0.f, 360.f));
 	sceneGame->AddGo(effectBlood);
 
-	ItemSpawner* itemSpawn = new ItemSpawner();
-	itemSpawn->Init();
-	itemSpawn->Reset();
-	itemSpawn->SetRotation(Utils::RandomRange(0.f, 360.f));
-	itemSpawn->DropItem(position);
-
+	int rand = Utils::RandomRange(0,3);  // 0, 1, 2
+	if (rand)
+	{
+		ItemSpawner* itemSpawn = new ItemSpawner();
+		itemSpawn->Init();
+		itemSpawn->Reset();
+		itemSpawn->SetRotation(Utils::RandomRange(0.f, 360.f));
+		itemSpawn->DropItem(position);
+	}
 }

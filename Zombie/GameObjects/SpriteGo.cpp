@@ -99,4 +99,19 @@ void SpriteGo::Reset()
 void SpriteGo::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+
+	if (hasHitBox && SCENE_MGR.GetDeveloperMode())
+	{
+		sf::RectangleShape hitBox;
+		sf::FloatRect bound = sprite.getGlobalBounds();
+
+		hitBox.setPosition(position);
+		hitBox.setOrigin(origin);
+		hitBox.setOutlineColor(sf::Color::Red);
+		hitBox.setOutlineThickness(1.f);
+		hitBox.setFillColor(sf::Color::Transparent);
+		hitBox.setSize({ bound.width, bound.height });
+
+		window.draw(hitBox);
+	}
 }

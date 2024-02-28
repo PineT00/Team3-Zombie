@@ -25,6 +25,7 @@ GameObject* ItemSpawner::Create()
 
 void ItemSpawner::DropItem(const sf::Vector2f& position)
 {
+	itemTypes.push_back(Item::Types::Health);
 	GameObject* drop = Create();
 	drop->Init();
 	drop->Reset();
@@ -40,9 +41,9 @@ void ItemSpawner::Reset()
 
 	itemTypes.clear();
 	itemTypes.push_back(Item::Types::Ammo);
-	itemTypes.push_back(Item::Types::Health);
+	/*itemTypes.push_back(Item::Types::Health);*/
 
-	interval = 1.f;
+	interval = 3.f;
 	spawnCount = 1;
 	radius = 250.f;
 	timer = 0.f;

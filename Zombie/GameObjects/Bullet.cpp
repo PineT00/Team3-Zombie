@@ -21,6 +21,8 @@ void Bullet::Init()
 	SpriteGo::Init();
 	SetTexture("graphics/bullet.png");
 	SetOrigin(Origins::ML);
+
+	hasHitBox = true;
 }
 
 void Bullet::Reset()

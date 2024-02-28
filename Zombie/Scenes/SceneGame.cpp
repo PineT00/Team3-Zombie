@@ -123,9 +123,24 @@ void SceneGame::Enter()
 	zombieSpawner->SetActive(false);
 	zombieSpawner->Spawn(zombieNum);
 
+	std::ifstream file("hiscore.txt");
+	std::string line;
+	if (file.is_open())
+	{
+		if (getline(file, line))
+		{
+			hiscore = std::stoi(line);
+		}
+	}
+	else
+	{
+		std::cout << "파일을 열 수 없습니다." << std::endl;
+	}
+	file.close();
+
 	// UI
 	uiHud->SetScore(score);
-	uiHud->SetHiScore(100);
+	uiHud->SetHiScore(hiscore);
 	// uiHud->SetAmmo(3, 8);
 	// uiHud->SetHp(player->GetPlayerHP(), player->GetPlayerMaxHP());
 	uiHud->SetWave(wave);
@@ -203,6 +218,15 @@ void SceneGame::UpdateGame(float dt)
 	{
 		SetStatus(Status::Pause);
 		return;
+	}
+
+	if (SCENE_MGR.GetDeveloperMode() && InputMgr::GetKeyDown(sf::Keyboard::Delete))
+	{
+		for (auto go : zombieList)
+		{
+			Zombie* zombie = dynamic_cast<Zombie*>(go);
+			zombie->OnDie();
+		}
 	}
 
 	// 사운드 테스트
@@ -308,6 +332,16 @@ void SceneGame::SetStatus(Status newStatus)
 		FRAMEWORK.SetTimeScale(0.f);
 		break;
 	case Status::GameOver:
+		if (score > hiscore)
+		{
+			std::ofstream file("hiscore.txt");
+			if (file.is_open())
+			{
+				file.write(std::to_string(score).c_str(), std::to_string(score).size());  //.c_str() : string형 -> char*형
+			}
+			file.close();
+		}
+		
 		uiHud->SetMessage("Game Over!");
 		uiHud->SetMessageActive(true);
 		FRAMEWORK.SetTimeScale(0.f);
