@@ -21,7 +21,8 @@ void ZombieSpawner::Reset()
 	zombieTypes.push_back(Zombie::Types::Bloater);
 	zombieTypes.push_back(Zombie::Types::Chaser);
 	zombieTypes.push_back(Zombie::Types::Chaser);
-	zombieTypes.push_back(Zombie::Types::Chaser);
+	zombieTypes.push_back(Zombie::Types::Crawler);
+	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 
