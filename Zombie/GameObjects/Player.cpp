@@ -17,6 +17,8 @@ void Player::Init()
 
 	isFiring = false;
 	fireTimer = fireInterval;
+
+	hasHitBox = true;
 }
 
 void Player::Release()

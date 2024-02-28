@@ -6,6 +6,8 @@ protected:
 	sf::Sprite sprite;
 	std::string textureId;
 
+	bool hasHitBox = false;
+
 public:
 	SpriteGo(const std::string& name = "");
 

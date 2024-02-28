@@ -31,6 +31,8 @@ void Zombie::Init()
 	SpriteGo::Init();
 	SetTexture(textureId);
 	SetOrigin(Origins::MC);
+
+	hasHitBox = true;
 }
 
 void Zombie::Release()
