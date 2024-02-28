@@ -14,15 +14,14 @@ protected:
 
 	int maxHp = 1000;
 	int hp;
-	int maxAmmo = 20;
-	int ammo = maxAmmo;
-	int maxMagazine = 6;
-	int magazine = maxMagazine;
+	int maxmagazine = 12;
+	int magazine = maxmagazine;
+	int ammo = 0;
 
 	bool isAlive = true;
 	bool isNoDamage = false;
 	float noDamageTimer = 0.f;
-	float noDamageInterval = 3.f;
+	float noDamageInterval = 1.f;
 
 	SceneGame* sceneGame = nullptr;
 	UiHud* uiHud = nullptr;

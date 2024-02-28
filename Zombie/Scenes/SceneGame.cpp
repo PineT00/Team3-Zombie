@@ -66,7 +66,12 @@ void SceneGame::Init()
 	crosshair->SetTexture("graphics/crosshair.png");
 	crosshair->SetOrigin(Origins::MC);
 	AddGo(crosshair, Layers::Ui);
-	
+
+	//배경 이미지
+	title = new SpriteGo("Title Img");
+	title->SetTexture("graphics/background.png");
+	AddGo(title, Ui);
+
 	// UI
 	uiHud = new UiHud("UI HUD");
 	AddGo(uiHud, Layers::Ui);
@@ -84,8 +89,9 @@ void SceneGame::Enter()
 	Scene::Enter();
 
 	FRAMEWORK.GetWindow().setMouseCursorVisible(false);
-	SetStatus(Status::Game);
+	SetStatus(Status::Awake);
 	wave = 1;
+	zombieCount = 2;
 
 	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
 	sf::Vector2f centerPos = windowSize * 0.5f;
@@ -106,9 +112,24 @@ void SceneGame::Enter()
 	zombieSpawner->SetActive(false);
 	zombieSpawner->Spawn(zombieNum);
 
+	std::ifstream file("hiscore.txt");
+	std::string line;
+	if (file.is_open())
+	{
+		if (getline(file, line))
+		{
+			hiscore = std::stoi(line);
+		}
+	}
+	else
+	{
+		std::cout << "파일을 열 수 없습니다." << std::endl;
+	}
+	file.close();
+
 	// UI
 	uiHud->SetScore(score);
-	uiHud->SetHiScore(100);
+	uiHud->SetHiScore(hiscore);
 	// uiHud->SetAmmo(3, 8);
 	// uiHud->SetHp(player->GetPlayerHP(), player->GetPlayerMaxHP());
 	uiHud->SetWave(wave);
@@ -137,6 +158,9 @@ void SceneGame::Update(float dt)
 
 	switch (currStatus)
 	{
+	case Status::Awake:
+		UpdateAwake(dt);
+		break;
 	case Status::Game:
 		UpdateGame(dt);
 		break;
@@ -160,6 +184,14 @@ void SceneGame::LateUpdate(float dt)
 void SceneGame::FixedUpdate(float dt)
 {
 	Scene::FixedUpdate(dt);
+}
+
+void SceneGame::UpdateAwake(float dt)
+{
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		SetStatus(Status::Game);
+	}
 }
 
 void SceneGame::UpdateGame(float dt)
@@ -203,7 +235,8 @@ void SceneGame::UpdateNextWave(float dt)
 		SetStatus(Status::Game);
 
 		++wave;
-		zombieNum = wave * 2;
+		zombieCount *= 2;
+		zombieNum = zombieCount;
 
 		player->SetPosition({ 0.f, 0.f });
 		tileMap->Set({ wave * 10, wave * 10 }, { 50.f, 50.f });
@@ -226,11 +259,23 @@ void SceneGame::UpdateNextWave(float dt)
 
 void SceneGame::UpdateGameOver(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		Release();
+		Init();
+
+		score = 0;
+		wave = 1;
+		zombieCount = 2;
+		zombieNum = zombieCount;
+		Enter();
+		SetStatus(Status::Awake);
+	}
 }
 
 void SceneGame::UpdatePause(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 	{
 		SetStatus(Status::Game);
 	}
@@ -248,7 +293,14 @@ void SceneGame::SetStatus(Status newStatus)
 
 	switch (currStatus)
 	{
+	case Status::Awake:
+		title->SetActive(true);
+		uiHud->SetMessage("Press Enter to Start!");
+		uiHud->SetMessageActive(true);
+		FRAMEWORK.SetTimeScale(0.f);
+		break;
 	case Status::Game:
+		title->SetActive(false);
 		uiHud->SetMessage("");
 		uiHud->SetMessageActive(false);
 		FRAMEWORK.SetTimeScale(1.f);
@@ -259,6 +311,16 @@ void SceneGame::SetStatus(Status newStatus)
 		FRAMEWORK.SetTimeScale(0.f);
 		break;
 	case Status::GameOver:
+		if (score > hiscore)
+		{
+			std::ofstream file("hiscore.txt");
+			if (file.is_open())
+			{
+				file.write(std::to_string(score).c_str(), std::to_string(score).size());  //.c_str() : string형 -> char*형
+			}
+			file.close();
+		}
+		
 		uiHud->SetMessage("Game Over!");
 		uiHud->SetMessageActive(true);
 		FRAMEWORK.SetTimeScale(0.f);

@@ -80,18 +80,17 @@ void Player::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::R))
 	{
-		if (ammo < maxMagazine)
+		int load = (12 - magazine);
+
+		ammo -= load;
+
+		if (ammo < 0)
 		{
-			magazine += ammo;
-			if (magazine > maxMagazine)
-				magazine = maxMagazine;
+			load += ammo;
 			ammo = 0;
 		}
-		else
-		{
-			magazine = maxMagazine;
-			ammo -= maxMagazine;
-		}
+		magazine += load;
+
 		uiHud->SetAmmo(magazine, ammo);
 	}
 
@@ -176,8 +175,6 @@ void Player::OnItem(Item* item)
 	{
 	case Item::Types::Ammo:
 		ammo += item->GetValue();
-		if (ammo > maxAmmo)
-			ammo = maxAmmo;
 		uiHud->SetAmmo(magazine, ammo);
 		break;
 	case Item::Types::Health:
