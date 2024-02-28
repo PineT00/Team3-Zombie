@@ -19,11 +19,27 @@ Zombie* Zombie::Create(Types zombieType)
 	zombie->attackInterval = data.attackInterval;
 	zombie->sortLayer = 1;
 
+	zombie->dashSpeed = zombie->speed * 5.5f;
+	zombie->originalSpeed = zombie->speed;
+
+
 	return zombie;
 }
 
 Zombie::Zombie(const std::string& name) : SpriteGo(name)
 {
+}
+
+void Zombie::Dash(bool isDash)
+{
+	if (isDash)
+	{
+		speed = dashSpeed;
+	}
+	else
+	{
+		speed = originalSpeed;
+	}
 }
 
 void Zombie::Init()
@@ -61,14 +77,19 @@ void Zombie::Update(float dt)
 	if (!isAlive)
 		return;
 
-	direction = player->GetPosition() - position;
-	float distance = Utils::Magnitude(direction);
-	Utils::Normalize(direction);
 
-	float angle = Utils::Angle(direction);
-	SetRotation(angle);
+
+	if (!isDash)
+	{
+		direction = player->GetPosition() - position;
+		float distance = Utils::Magnitude(direction);
+		Utils::Normalize(direction);
+		float angle = Utils::Angle(direction);
+		SetRotation(angle);
+	}
 
 	sf::Vector2f pos = position + direction * speed * dt;
+
 	if (sceneGame != nullptr)
 	{
 		pos = sceneGame->ClampByTileMap(pos);
@@ -89,6 +110,21 @@ void Zombie::FixedUpdate(float dt)
 		}
 	}
 
+	dashTimer += dt;
+	if (type == Zombie::Types::Chaser)
+	{
+		if (!isDash && dashTimer > dashInterval)
+		{
+			speed = dashSpeed;
+			isDash = true;
+		}
+		if (isDash && dashTimer > dashInterval + dashTime)
+		{
+			speed = originalSpeed;
+			dashTimer = 0.f;
+			isDash = false;
+		}
+	}
 }
 
 void Zombie::Draw(sf::RenderWindow& window)

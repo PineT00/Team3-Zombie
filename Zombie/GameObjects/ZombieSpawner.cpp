@@ -28,6 +28,6 @@ void ZombieSpawner::Reset()
 
 	interval = 5.f;
 	spawnCount = 1;
-	radius = 250.f;
+	radius = 450.f;
 	timer = 0.f;
 }

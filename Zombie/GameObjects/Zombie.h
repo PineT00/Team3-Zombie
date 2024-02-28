@@ -31,6 +31,10 @@ protected:
 	float speed;
 	int hp;
 
+	bool isDash = false;
+	float dashSpeed;
+	float originalSpeed;
+
 	Player* player = nullptr;
 	SceneGame* sceneGame = nullptr;
 	UiHud* uiHud = nullptr;
@@ -39,14 +43,17 @@ protected:
 	sf::Vector2f direction;
 	bool isAlive = true;
 
-	float dashInterval;
+	float dashInterval = 3.f;
 	float dashTimer = 0.f;
+	float dashTime = 1.f;
 
 
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 
 public:
 	~Zombie() override = default;
+
+	void Dash(bool isDash);
 
 	void Init() override;
 	void Release() override;
