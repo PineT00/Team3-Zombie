@@ -105,7 +105,11 @@ void Player::Update(float dt)
 		uiHud->SetAmmo(magazine, ammo);
 	}
 
-	if (isNoDamage)
+	if (SCENE_MGR.GetDeveloperMode())
+	{
+		isNoDamage = true;
+	}
+	else if (isNoDamage)
 	{
 		noDamageTimer += dt;
 		if (noDamageTimer > noDamageInterval)
@@ -147,7 +151,7 @@ void Player::OnDamage(int damage)
 	isNoDamage = true;
 	noDamageTimer = 0.f;
 
-	if (hp <= 0)
+	if (hp <= 0) 
 	{
 		hp = 0;
 		OnDie();

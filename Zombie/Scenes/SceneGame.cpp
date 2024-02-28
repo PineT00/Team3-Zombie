@@ -176,6 +176,15 @@ void SceneGame::UpdateGame(float dt)
 		return;
 	}
 
+	if (SCENE_MGR.GetDeveloperMode() && InputMgr::GetKeyDown(sf::Keyboard::Delete))
+	{
+		for (auto zombie : zombieList)
+		{
+			RemoveGo(zombie);
+			zombieNum = 0;
+		}
+	}
+
 	// 사운드 테스트
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
 	{
