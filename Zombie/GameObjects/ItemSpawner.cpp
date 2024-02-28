@@ -25,6 +25,7 @@ GameObject* ItemSpawner::Create()
 
 void ItemSpawner::DropItem(const sf::Vector2f& position)
 {
+	itemTypes.push_back(Item::Types::Health);
 	GameObject* drop = Create();
 	drop->Init();
 	drop->Reset();
