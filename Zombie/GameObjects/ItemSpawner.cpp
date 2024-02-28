@@ -40,9 +40,9 @@ void ItemSpawner::Reset()
 
 	itemTypes.clear();
 	itemTypes.push_back(Item::Types::Ammo);
-	itemTypes.push_back(Item::Types::Health);
+	/*itemTypes.push_back(Item::Types::Health);*/
 
-	interval = 1.f;
+	interval = 3.f;
 	spawnCount = 1;
 	radius = 250.f;
 	timer = 0.f;
