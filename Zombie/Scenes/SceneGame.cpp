@@ -210,10 +210,10 @@ void SceneGame::UpdateGame(float dt)
 
 	if (SCENE_MGR.GetDeveloperMode() && InputMgr::GetKeyDown(sf::Keyboard::Delete))
 	{
-		for (auto zombie : zombieList)
+		for (auto go : zombieList)
 		{
-			RemoveGo(zombie);
-			zombieNum = 0;
+			Zombie* zombie = dynamic_cast<Zombie*>(go);
+			zombie->OnDie();
 		}
 	}
 
