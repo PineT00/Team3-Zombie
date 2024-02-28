@@ -14,8 +14,8 @@ protected:
 
 	int maxHp = 1000;
 	int hp;
-	int maxmagazine = 12;
-	int magazine = maxmagazine;
+	int maxMagazine = 12;
+	int magazine = maxMagazine;
 	int ammo = 0;
 
 	bool isAlive = true;
@@ -39,6 +39,12 @@ public:
 	const int GetPlayerHP() { return hp; }
 	const int GetPlayerMaxHP() { return maxHp; }
 	const int GetPlayerAmmo() { return ammo; }
+
+	float SetPlayerFireRate(float rateUp) { return fireInterval *= rateUp; }
+	int SetPlayerMaxMagazine(int magazineUp) { return maxMagazine += magazineUp; }
+	int SetPlayerMaxHP(int hpUp) { return maxHp += hpUp; }
+	float SetPlayerSpeed(int speedUp) { return speed += speedUp; }
+
 
 	void Init() override;
 	void Release() override;

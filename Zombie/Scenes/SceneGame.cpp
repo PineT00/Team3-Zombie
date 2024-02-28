@@ -7,6 +7,7 @@
 #include "ItemSpawner.h"
 #include "TextGo.h"
 #include "UiHud.h"
+#include "StatusUpgrade.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -76,6 +77,16 @@ void SceneGame::Init()
 	uiHud = new UiHud("UI HUD");
 	AddGo(uiHud, Layers::Ui);
 
+	upgradeMenu = new StatusUpgrade("Upgrade Menu");
+	AddGo(upgradeMenu, Ui);
+
+	sf::Font& font = RES_MGR_FONT.Get("fonts/zombiecontrol.ttf");
+	textTitle = new TextGo("Title Text");
+	textTitle->Set(font, "Press Enter to Start!", 80, sf::Color::White);
+	textTitle->SetOrigin(Origins::MC);
+	textTitle->SetPosition((sf::Vector2f)FRAMEWORK.GetWindowSize() * 0.5f);
+	AddGo(textTitle, Ui);
+
 	Scene::Init();
 }
 
@@ -119,6 +130,7 @@ void SceneGame::Enter()
 	// uiHud->SetHp(player->GetPlayerHP(), player->GetPlayerMaxHP());
 	uiHud->SetWave(wave);
 	uiHud->SetZombieCount(zombieNum);
+
 }
 
 void SceneGame::Exit()
@@ -206,7 +218,9 @@ void SceneGame::UpdateGame(float dt)
 
 void SceneGame::UpdateNextWave(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter) || InputMgr::GetKeyDown(sf::Keyboard::Num1) 
+		|| InputMgr::GetKeyDown(sf::Keyboard::Num2) || InputMgr::GetKeyDown(sf::Keyboard::Num3)
+		|| InputMgr::GetKeyDown(sf::Keyboard::Num4) || InputMgr::GetKeyDown(sf::Keyboard::Num5) || InputMgr::GetKeyDown(sf::Keyboard::Num6))
 	{
 		SetStatus(Status::Game);
 
@@ -271,17 +285,24 @@ void SceneGame::SetStatus(Status newStatus)
 	{
 	case Status::Awake:
 		title->SetActive(true);
-		uiHud->SetMessage("Press Enter to Start!");
-		uiHud->SetMessageActive(true);
+		textTitle->SetActive(true);
+		upgradeMenu->SetActive(false);
+		uiHud->SetActive(false);
 		FRAMEWORK.SetTimeScale(0.f);
 		break;
 	case Status::Game:
 		title->SetActive(false);
+		textTitle->SetActive(false);
+		upgradeMenu->SetActive(false);
+		uiHud->SetActive(true);
 		uiHud->SetMessage("");
 		uiHud->SetMessageActive(false);
 		FRAMEWORK.SetTimeScale(1.f);
 		break;
 	case Status::NextWave:
+		title->SetActive(true);
+		upgradeMenu->SetActive(true);
+		uiHud->SetActive(false);
 		uiHud->SetMessage("Next Wave!");
 		uiHud->SetMessageActive(true);
 		FRAMEWORK.SetTimeScale(0.f);

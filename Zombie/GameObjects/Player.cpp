@@ -78,7 +78,7 @@ void Player::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::R))
 	{
-		int load = (12 - magazine);
+		int load = (maxMagazine - magazine);
 
 		ammo -= load;
 

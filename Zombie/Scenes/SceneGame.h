@@ -6,6 +6,8 @@ class Player;
 class Spawner;
 class UiHud;
 class SpriteGo;
+class StatusUpgrade;
+class TextGo;
 
 class SceneGame : public Scene
 {
@@ -27,6 +29,8 @@ protected:
 	UiHud* uiHud = nullptr;
 	SpriteGo* crosshair = nullptr;
 	SpriteGo* title = nullptr;
+	StatusUpgrade* upgradeMenu = nullptr;
+	TextGo* textTitle = nullptr;
 
 	std::list<GameObject*> zombieList;
 	std::list<GameObject*> itemList;
