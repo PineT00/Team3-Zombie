@@ -110,6 +110,22 @@ void Player::Update(float dt)
 		uiHud->SetAmmo(magazine, ammo);
 	}
 
+	//근접 무기 공격
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right))
+	{
+		isMelee = true;
+	}
+	if (InputMgr::GetMouseButtonUp(sf::Mouse::Right))
+	{
+		isMelee = false;
+	}
+	
+	MeleeTimer += dt;
+	if (isMelee && MeleeTimer > meleeInterval)
+	{
+
+	}
+	
 	if (SCENE_MGR.GetDeveloperMode())
 	{
 		isNoDamage = true;
@@ -122,6 +138,8 @@ void Player::Update(float dt)
 			isNoDamage = false;
 		}
 	}
+	
+
 }
 
 void Player::FixedUpdate(float dt)

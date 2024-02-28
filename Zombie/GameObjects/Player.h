@@ -32,6 +32,12 @@ protected:
 	float bulletSpeed = 1000.f;
 	int bulletDamage = 10;
 
+	bool isMelee = false;         //근접 공격
+	float meleeInterval = 0.2f;   //근접 공격 간격
+	float MeleeTimer = 0.f;       //근접 공격 주기
+	float MeleeSpeed = 1000.f;    //근접 공격 속도
+	int MeleeDamage = 10;         //근접 공격 데미지
+
 public:
 	Player(const std::string& name = "");
 	~Player() override = default;
