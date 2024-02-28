@@ -80,10 +80,16 @@ void Player::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::R))
 	{
+		if (ammo == 0)
+		{
+			SOUND_MGR.PlaySfx("sound/reload_failed.wav");
+			return;
+		}
+
+		SOUND_MGR.PlaySfx("sound/reload.wav");
+
 		int load = (maxMagazine - magazine);
-
 		ammo -= load;
-
 		if (ammo < 0)
 		{
 			load += ammo;
@@ -184,4 +190,5 @@ void Player::OnItem(Item* item)
 		uiHud->SetHp(hp, maxHp);
 		break;
 	}
+	SOUND_MGR.PlaySfx("sound/pickup.wav");
 }

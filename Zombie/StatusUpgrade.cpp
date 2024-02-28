@@ -52,26 +52,32 @@ void StatusUpgrade::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
 	{
 		player->SetPlayerFireRate(0.7f);
+		SOUND_MGR.PlaySfx("sound/powerup.wav");
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
 	{
 		player->SetPlayerMaxMagazine(6);
+		SOUND_MGR.PlaySfx("sound/powerup.wav");
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
 	{
 		player->SetPlayerMaxHP(50);
+		SOUND_MGR.PlaySfx("sound/powerup.wav");
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num4))
 	{
 		player->SetPlayerSpeed(100);
+		SOUND_MGR.PlaySfx("sound/powerup.wav");
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
 	{
 		itemSpawner->hpItemValue += 20;
+		SOUND_MGR.PlaySfx("sound/powerup.wav");
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num6))
 	{
 		itemSpawner->ammoItemValue += 10;
+		SOUND_MGR.PlaySfx("sound/powerup.wav");
 	}
 
 }

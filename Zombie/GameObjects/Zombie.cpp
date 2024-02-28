@@ -98,6 +98,8 @@ void Zombie::Draw(sf::RenderWindow& window)
 
 void Zombie::OnDamage(int damage)
 {
+	SOUND_MGR.PlaySfx("sound/hit.wav");
+
 	if (!isAlive)
 		return;
 
@@ -106,6 +108,7 @@ void Zombie::OnDamage(int damage)
 	{
 		hp = 0;
 		OnDie();
+		SOUND_MGR.PlaySfx("sound/splat.wav");
 	}
 }
 

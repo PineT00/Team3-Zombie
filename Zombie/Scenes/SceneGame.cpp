@@ -229,15 +229,6 @@ void SceneGame::UpdateGame(float dt)
 		}
 	}
 
-	// 사운드 테스트
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
-	{
-		SOUND_MGR.PlayBgm("sound/mapleBgm1.mp3");
-	}
-	else if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
-	{
-		SOUND_MGR.PlayBgm("sound/mapleBgm2.mp3");
-	}
 }
 
 void SceneGame::UpdateNextWave(float dt)
