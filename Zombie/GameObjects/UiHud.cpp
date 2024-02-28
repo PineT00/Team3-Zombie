@@ -55,6 +55,11 @@ void UiHud::SetMessageActive(bool active)
 		textMessage.SetActive(false);
 }
 
+void UiHud::SetFps(int fps)
+{
+	textFps.SetString(formatFps + std::to_string(fps));
+}
+
 void UiHud::Init()
 {
 	textScore.Init();
@@ -64,6 +69,7 @@ void UiHud::Init()
 	textWave.Init();
 	textZombieCount.Init();
 	textMessage.Init();
+	textFps.Init();
 
 	sf::Font& font = RES_MGR_FONT.Get("fonts/zombiecontrol.ttf");
 
@@ -75,6 +81,8 @@ void UiHud::Init()
 	textZombieCount.Set(font, "", textSize, sf::Color::White);
 	textMessage.Set(font, "", textSize, sf::Color::White);
 	textMessage.SetActive(false);
+	textFps.Set(font, "", textSize, sf::Color::White);
+	textFps.SetActive(false);
 
 	imgAmmoIcon.SetTexture("graphics/ammo_icon.png");
 	gaugeHp.setFillColor(sf::Color::Red);
@@ -88,11 +96,13 @@ void UiHud::Init()
 	textWave.SetOrigin(Origins::BR);
 	textZombieCount.SetOrigin(Origins::BR);
 	textMessage.SetOrigin(Origins::MC);
+	textFps.SetOrigin(Origins::TR);
 
 	// Top
 	float topY = 100.f;
 	textScore.SetPosition({ 150.f, topY });
 	textHiScore.SetPosition({ referenceResolution.x - 150.f, topY });
+	textFps.SetPosition({ referenceResolution.x - 150.f, topY + 100.f });
 
 	textMessage.SetPosition({ referenceResolution.x / 2.f, referenceResolution.y / 2.f });
 
@@ -116,6 +126,14 @@ void UiHud::Reset()
 
 void UiHud::Update(float dt)
 {
+	fpsTimer += FRAMEWORK.GetRealDT();
+	++fpsCount;
+	if (fpsTimer >= 1.f)
+	{
+		SetFps(fpsCount);
+		fpsTimer = 0.f;
+		fpsCount = 0;
+	}
 }
 
 void UiHud::LateUpdate(float dt)
@@ -136,4 +154,9 @@ void UiHud::Draw(sf::RenderWindow& window)
 	textZombieCount.Draw(window);
 	textMessage.Draw(window);
 	window.draw(gaugeHp);
+
+	if (SCENE_MGR.GetDeveloperMode())
+	{
+		textFps.Draw(window);
+	}
 }
