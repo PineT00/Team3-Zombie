@@ -17,7 +17,6 @@ Zombie* Zombie::Create(Types zombieType)
 	zombie->speed = data.speed;
 	zombie->damage = data.damage;
 	zombie->attackInterval = data.attackInterval;
-
 	zombie->sortLayer = 1;
 
 	return zombie;
@@ -89,6 +88,7 @@ void Zombie::FixedUpdate(float dt)
 			attackInterval = 0.f;
 		}
 	}
+
 }
 
 void Zombie::Draw(sf::RenderWindow& window)

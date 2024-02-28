@@ -10,9 +10,9 @@ class Player : public SpriteGo
 protected:
 	sf::Vector2f direction = { 0.f, 0.f };
 	sf::Vector2f look = { 1.f, 0.f };
-	float speed = 500.f;
+	float speed = 250.f;
 
-	int maxHp = 1000;
+	int maxHp = 500;
 	int hp;
 	int maxMagazine = 12;
 	int magazine = maxMagazine;

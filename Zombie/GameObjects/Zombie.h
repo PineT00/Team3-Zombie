@@ -39,6 +39,10 @@ protected:
 	sf::Vector2f direction;
 	bool isAlive = true;
 
+	float dashInterval;
+	float dashTimer = 0.f;
+
+
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 
 public:
