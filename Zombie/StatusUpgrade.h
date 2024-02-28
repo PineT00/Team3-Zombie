@@ -3,6 +3,7 @@
 
 class Player;
 class ItemSpawner;
+class Item;
 
 class StatusUpgrade : public GameObject
 {
@@ -18,6 +19,7 @@ protected:
 public:
 	Player* player;
 	ItemSpawner* itemSpawner;
+	Item* item;
 
 	StatusUpgrade(const std::string& name = "");
 	~StatusUpgrade() = default;

@@ -219,6 +219,11 @@ void SceneGame::UpdateGame(float dt)
 		SetStatus(Status::Pause);
 		return;
 	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+	{
+		
+		return;
+	}
 
 	if (SCENE_MGR.GetDeveloperMode() && InputMgr::GetKeyDown(sf::Keyboard::Delete))
 	{
@@ -329,6 +334,7 @@ void SceneGame::SetStatus(Status newStatus)
 		uiHud->SetActive(false);
 		uiHud->SetMessage("Next Wave!");
 		uiHud->SetMessageActive(true);
+		uiHud->SetHp(player->GetPlayerHP(), player->GetPlayerMaxHP());
 		FRAMEWORK.SetTimeScale(0.f);
 		break;
 	case Status::GameOver:

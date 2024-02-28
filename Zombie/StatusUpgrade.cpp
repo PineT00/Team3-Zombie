@@ -59,7 +59,7 @@ void StatusUpgrade::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
 	{
-		player->SetPlayerMaxHP(50);
+		player->SetPlayerMaxHP(500);
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num4))
 	{
@@ -67,7 +67,7 @@ void StatusUpgrade::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
 	{
-		itemSpawner->hpItemValue += 20;
+		itemSpawner->hpItemValue += 2000;
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num6))
 	{

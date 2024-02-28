@@ -157,6 +157,7 @@ void Player::OnDamage(int damage)
 	}
 
 	uiHud->SetHp(hp, maxHp);
+	
 }
 
 void Player::OnDie()

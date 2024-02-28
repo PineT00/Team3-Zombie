@@ -29,6 +29,7 @@ void UiHud::SetHp(int hp, int max)
 {
 	float value = (float)hp / max;
 	gaugeHp.setSize({ gaugeHpSize.x * value, gaugeHpSize.y });
+	std::cout << hp << "," << max << std::endl;
 }
 
 void UiHud::SetWave(int w)
