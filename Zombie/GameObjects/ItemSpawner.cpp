@@ -31,6 +31,8 @@ void ItemSpawner::DropItem(const sf::Vector2f& position)
 	drop->SetOrigin(Origins::MC);
 	drop->SetPosition(position);
 
+	itemTypes.push_back(Item::Types::Health); 
+
 	SCENE_MGR.GetCurrentScene()->AddGo(drop);
 }
 
@@ -40,7 +42,7 @@ void ItemSpawner::Reset()
 
 	itemTypes.clear();
 	itemTypes.push_back(Item::Types::Ammo);
-	itemTypes.push_back(Item::Types::Health);
+
 
 	interval = 3.f;
 	spawnCount = 1;

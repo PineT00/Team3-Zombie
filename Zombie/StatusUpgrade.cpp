@@ -67,7 +67,7 @@ void StatusUpgrade::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
 	{
-		itemSpawner->hpItemValue += 2000;
+		itemSpawner->hpItemValue += 1000;
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num6))
 	{

@@ -50,6 +50,7 @@ void Zombie::Reset()
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 	uiHud = dynamic_cast<UiHud*>(SCENE_MGR.GetCurrentScene()->FindGo("UI HUD"));
+	itemSpawner = dynamic_cast<ItemSpawner*>(SCENE_MGR.GetCurrentScene()->FindGo("Item Spawner"));
 
 	isAlive = true;
 }
@@ -133,10 +134,6 @@ void Zombie::OnDie()
 	int rand = Utils::RandomRange(0,3);  // 0, 1, 2
 	if (rand)
 	{
-		ItemSpawner* itemSpawn = new ItemSpawner();
-		itemSpawn->Init();
-		itemSpawn->Reset();
-		itemSpawn->SetRotation(Utils::RandomRange(0.f, 360.f));
-		itemSpawn->DropItem(position);
+		itemSpawner->DropItem(position);
 	}
 }

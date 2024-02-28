@@ -4,6 +4,7 @@
 
 class SceneGame;
 class UiHud;
+class ItemSpawner;
 
 class Zombie : public SpriteGo
 {
@@ -16,6 +17,7 @@ public:
 	};
 	static const int TotalTypes = 3;
 	static Zombie* Create(Types zombieType);
+	ItemSpawner* itemSpawner = nullptr;
 
 protected:
 	Types type;

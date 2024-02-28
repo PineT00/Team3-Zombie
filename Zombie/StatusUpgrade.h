@@ -17,9 +17,9 @@ protected:
 
 	int fontSize = 50;
 public:
+	//std::vector<Item::Types> itemTypes;
 	Player* player;
-	ItemSpawner* itemSpawner;
-	Item* item;
+	ItemSpawner* itemSpawner = nullptr;
 
 	StatusUpgrade(const std::string& name = "");
 	~StatusUpgrade() = default;
