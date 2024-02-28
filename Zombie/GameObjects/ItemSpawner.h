@@ -15,6 +15,7 @@ public:
 	~ItemSpawner() override = default;
 
 	GameObject* Create() override;
+	GameObject* dropCreate();
 	void DropItem(const sf::Vector2f& position);
 
 	void Reset() override;

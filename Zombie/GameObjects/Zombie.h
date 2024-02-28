@@ -4,6 +4,7 @@
 
 class SceneGame;
 class UiHud;
+class ItemSpawner;
 
 class Zombie : public SpriteGo
 {
@@ -33,6 +34,7 @@ protected:
 	Player* player = nullptr;
 	SceneGame* sceneGame = nullptr;
 	UiHud* uiHud = nullptr;
+	ItemSpawner* itemSpawner = nullptr;
 
 	sf::Vector2f direction;
 	bool isAlive = true;

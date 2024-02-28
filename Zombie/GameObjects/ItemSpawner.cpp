@@ -7,6 +7,11 @@ ItemSpawner::ItemSpawner(const std::string& name) : Spawner(name)
 
 GameObject* ItemSpawner::Create()
 {
+	return Item::Create(Item::Types::Ammo, ammoItemValue);
+}
+
+GameObject* ItemSpawner::dropCreate()
+{
 	Item::Types itemType = itemTypes[Utils::RandomRange(0, itemTypes.size())];
 
 	int value = 0;
@@ -25,8 +30,7 @@ GameObject* ItemSpawner::Create()
 
 void ItemSpawner::DropItem(const sf::Vector2f& position)
 {
-	itemTypes.push_back(Item::Types::Health);
-	GameObject* drop = Create();
+	GameObject* drop = dropCreate();
 	drop->Init();
 	drop->Reset();
 	drop->SetOrigin(Origins::MC);
@@ -41,7 +45,7 @@ void ItemSpawner::Reset()
 
 	itemTypes.clear();
 	itemTypes.push_back(Item::Types::Ammo);
-	/*itemTypes.push_back(Item::Types::Health);*/
+	itemTypes.push_back(Item::Types::Health);
 
 	interval = 3.f;
 	spawnCount = 1;

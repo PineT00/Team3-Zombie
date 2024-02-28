@@ -321,6 +321,7 @@ void SceneGame::SetStatus(Status newStatus)
 		uiHud->SetActive(true);
 		uiHud->SetMessage("");
 		uiHud->SetMessageActive(false);
+		uiHud->SetHp(player->GetPlayerHP(), player->GetPlayerMaxHP());
 		FRAMEWORK.SetTimeScale(1.f);
 		break;
 	case Status::NextWave:
