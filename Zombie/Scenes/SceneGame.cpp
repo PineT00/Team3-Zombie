@@ -70,7 +70,7 @@ void SceneGame::Init()
 
 	//배경 이미지
 	title = new SpriteGo("Title Img");
-	title->SetTexture("graphics/background.png");
+	title->SetTexture("graphics/background2.png");
 	AddGo(title, Ui);
 
 	// UI
