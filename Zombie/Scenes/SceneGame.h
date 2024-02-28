@@ -37,7 +37,7 @@ protected:
 	int wave = 1;
 	int zombieNum = 2;
 	int zombieCount = 2;
-
+	int hiscore;
 public:
 	SceneGame(SceneIds id);
 	~SceneGame() override = default;
