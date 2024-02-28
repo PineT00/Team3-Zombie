@@ -28,6 +28,7 @@ void ItemSpawner::DropItem(const sf::Vector2f& position)
 	GameObject* drop = Create();
 	drop->Init();
 	drop->Reset();
+	drop->SetOrigin(Origins::MC);
 	drop->SetPosition(position);
 
 	SCENE_MGR.GetCurrentScene()->AddGo(drop);

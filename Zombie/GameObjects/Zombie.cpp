@@ -4,6 +4,7 @@
 #include "UiHud.h"
 #include "SpriteGoEffect.h"
 #include "ZombieTable.h"
+#include "ItemSpawner.h"
 
 Zombie* Zombie::Create(Types zombieType)
 {
@@ -126,4 +127,11 @@ void Zombie::OnDie()
 	effectBlood->SetPosition(position);
 	effectBlood->SetRotation(Utils::RandomRange(0.f, 360.f));
 	sceneGame->AddGo(effectBlood);
+
+	ItemSpawner* itemSpawn = new ItemSpawner();
+	itemSpawn->Init();
+	itemSpawn->Reset();
+	itemSpawn->SetRotation(Utils::RandomRange(0.f, 360.f));
+	itemSpawn->DropItem(position);
+
 }
