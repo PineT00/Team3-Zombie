@@ -29,8 +29,6 @@ protected:
 	TextGo textMessage;
 
 	TextGo textFps;
-	float fpsTimer = 0.f;
-	int fpsCount = 0;
 
 	sf::Vector2f gaugeHpSize = { 500.f, 100.f };
 

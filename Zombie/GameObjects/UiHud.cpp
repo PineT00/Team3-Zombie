@@ -126,14 +126,6 @@ void UiHud::Reset()
 
 void UiHud::Update(float dt)
 {
-	fpsTimer += FRAMEWORK.GetRealDT();
-	++fpsCount;
-	if (fpsTimer >= 1.f)
-	{
-		SetFps(fpsCount);
-		fpsTimer = 0.f;
-		fpsCount = 0;
-	}
 }
 
 void UiHud::LateUpdate(float dt)
@@ -157,6 +149,7 @@ void UiHud::Draw(sf::RenderWindow& window)
 
 	if (SCENE_MGR.GetDeveloperMode())
 	{
+		SetFps(FRAMEWORK.GetFps());
 		textFps.Draw(window);
 	}
 }

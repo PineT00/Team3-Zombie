@@ -28,6 +28,10 @@ protected:
 
 	sf::Time fixedDeltaTime;
 
+	float fpsTimer = 0.f;
+	int fpsCount = 0;
+	int fps = 0;
+
 public:
 	sf::RenderWindow& GetWindow() { return window; }	// !!
 	const sf::Vector2i& GetWindowSize() const { return windowSize; }
@@ -39,6 +43,8 @@ public:
 
 	float GetTimeScale() const { return timeScale; }
 	void SetTimeScale(float scale) { timeScale = scale; }
+
+	int GetFps() const { return fps; }
 
 	virtual void Init(int width, int height, const std::string& name = "Game");
 	virtual void Do();
