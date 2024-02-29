@@ -33,6 +33,10 @@ void Zombie::Init()
 	SetTexture(textureId);
 	SetOrigin(Origins::MC);
 
+	hpBar.setFillColor(sf::Color::Red);
+	hpBar.setSize(hpBarSize);
+	Utils::SetOrigin(hpBar, Origins::BL);
+
 	hasHitBox = true;
 }
 
@@ -75,6 +79,8 @@ void Zombie::Update(float dt)
 		pos = sceneGame->ClampByTileMap(pos);
 	}
 	SetPosition(pos);
+
+	hpBar.setPosition(position.x - 40.f, position.y - 40.f);
 }
 
 void Zombie::FixedUpdate(float dt)
@@ -89,11 +95,15 @@ void Zombie::FixedUpdate(float dt)
 			attackInterval = 0.f;
 		}
 	}
+
+	hpBar.setScale({ (float)hp / maxHp, 1.f });
 }
 
 void Zombie::Draw(sf::RenderWindow& window)
 {
 	SpriteGo::Draw(window);
+	if (SCENE_MGR.GetDeveloperMode())
+		window.draw(hpBar);
 }
 
 void Zombie::OnDamage(int damage)

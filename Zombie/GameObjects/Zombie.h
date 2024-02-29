@@ -18,6 +18,9 @@ public:
 	static const int TotalTypes = 3;
 	static Zombie* Create(Types zombieType);
 
+	sf::RectangleShape hpBar;
+	sf::Vector2f hpBarSize = { 50.f, 5.f };
+
 protected:
 	Types type;
 
