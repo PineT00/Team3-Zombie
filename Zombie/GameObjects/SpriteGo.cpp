@@ -102,17 +102,36 @@ void SpriteGo::Draw(sf::RenderWindow& window)
 
 	if (hasHitBox && SCENE_MGR.GetDeveloperMode())
 	{
-		sf::RectangleShape hitBox;
-		sf::FloatRect bound = sprite.getGlobalBounds();
+		sf::RectangleShape globalHitBox;
+		sf::FloatRect globalBound = sprite.getGlobalBounds();
 
-		hitBox.setPosition(position);
-		hitBox.setOrigin(origin);
-		hitBox.setOutlineColor(sf::Color::Red);
-		hitBox.setOutlineThickness(1.f);
-		hitBox.setFillColor(sf::Color::Transparent);
-		hitBox.setRotation(sprite.getRotation());
-		hitBox.setSize({ bound.width, bound.height });
+		sf::RectangleShape imageBox;
 
-		window.draw(hitBox);
+		sf::RectangleShape localHitBox;
+		sf::FloatRect localBound = sprite.getLocalBounds();
+
+		globalHitBox.setPosition(globalBound.left, globalBound.top);
+		globalHitBox.setSize({ globalBound.width, globalBound.height });
+		globalHitBox.setOutlineColor(sf::Color::Red);
+		globalHitBox.setOutlineThickness(1.f);
+		globalHitBox.setFillColor(sf::Color::Transparent);
+
+		imageBox.setPosition(position);
+		imageBox.setOrigin(origin);
+		imageBox.setRotation(sprite.getRotation());
+		imageBox.setSize({ localBound.width, localBound.height });
+		imageBox.setOutlineColor(sf::Color::Green);
+		imageBox.setOutlineThickness(1.f);
+		imageBox.setFillColor(sf::Color::Transparent);
+
+		localHitBox.setPosition(localBound.left, localBound.top);
+		localHitBox.setSize({ localBound.width, localBound.height });
+		localHitBox.setOutlineColor(sf::Color::Blue);
+		localHitBox.setOutlineThickness(1.f);
+		localHitBox.setFillColor(sf::Color::Transparent);
+
+		window.draw(globalHitBox);
+		window.draw(imageBox);
+		window.draw(localHitBox);
 	}
 }

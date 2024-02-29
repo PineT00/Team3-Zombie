@@ -158,7 +158,7 @@ void Player::Update(float dt)
 		melee->SetActive(true);
 		melee->MeleeAttack(angle, MeleeSpeed, MeleeDamage);
 	}
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::XButton1))
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Middle))
 	{
 		sword->SetActive(true);
 		sword->SwordAttack(angle, MeleeSpeed, MeleeDamage);
