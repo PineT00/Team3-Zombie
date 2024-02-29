@@ -81,13 +81,16 @@ void Boomerang::FixedUpdate(float dt)
 
 		if (GetGlobalBounds().intersects(go->GetGlobalBounds()) && atkTimer > atkInterval)
 		{
-			atkTimer = 0.f;
+			if (go != nullptr)
+			{
+				atkTimer = 0.f;
 
-			Zombie* zombie = dynamic_cast<Zombie*>(go);
-			if (zombie != nullptr)
-				zombie->OnDamage(damage);
+				Zombie* zombie = dynamic_cast<Zombie*>(go);
+				if (zombie != nullptr)
+					zombie->OnDamage(damage);
 
-			break;
+				break;
+			}
 		}
 	}
 }

@@ -6,11 +6,8 @@
 #include "UiHud.h"
 #include "Melee.h"
 #include "Sword.h"
-<<<<<<< HEAD
 #include "Boomerang.h"
-=======
 #include "Fencing.h"
->>>>>>> origin/Develop_2_Sub
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -39,16 +36,13 @@ void Player::Release()
 		delete sword;
 	sword = nullptr;
 
-<<<<<<< HEAD
 	if (boomerang != nullptr)
 		delete boomerang;
 	boomerang = nullptr;
-=======
+	
 	if (fencing != nullptr)
 		delete fencing;
 	fencing = nullptr;
-	
->>>>>>> origin/Develop_2_Sub
 }
 
 void Player::Reset()
@@ -75,19 +69,17 @@ void Player::Reset()
 	sword->SetActive(false);
 	sceneGame->AddGo(sword);
 
-<<<<<<< HEAD
 	boomerang = new Boomerang("Boomerang");
 	boomerang->Init();
 	boomerang->Reset();
 	boomerang->SetActive(false);
 	sceneGame->AddGo(boomerang);
-=======
+
 	fencing = new Fencing("fencing");
 	fencing->Init();
 	fencing->Reset();
 	fencing->SetActive(false);
 	sceneGame->AddGo(fencing);
->>>>>>> origin/Develop_2_Sub
 }
 
 void Player::Update(float dt)
@@ -103,7 +95,7 @@ void Player::Update(float dt)
 	look = mouseWorldPos - position;
 	Utils::Normalize(look);
 
-	float angle = Utils::Angle(look);
+	angle = Utils::Angle(look);
 	sprite.setRotation(angle);
 
 	// 상하좌우(WASD) 이동

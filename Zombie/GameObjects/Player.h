@@ -14,6 +14,7 @@ class Player : public SpriteGo
 protected:
 	sf::Vector2f direction = { 0.f, 0.f };
 	sf::Vector2f look = { 1.f, 0.f };
+	float angle;
 	float speed = 500.f;
 
 	int maxHp = 1000;
@@ -54,6 +55,7 @@ public:
 	const int GetPlayerHP() { return hp; }
 	const int GetPlayerMaxHP() { return maxHp; }
 	const int GetPlayerAmmo() { return ammo; }
+	const float GetPlayerAngle() { return angle; }
 
 	float SetPlayerFireRate(float rateUp) { return fireInterval *= rateUp; }
 	int SetPlayerMaxMagazine(int magazineUp) { return maxMagazine += magazineUp; }

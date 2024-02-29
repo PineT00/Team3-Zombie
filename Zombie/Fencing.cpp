@@ -37,10 +37,7 @@ void Fencing::Reset()
 
 void Fencing::Update(float dt)
 {
-	Utils::Normalize(direction);
-
-	float angle = Utils::Angle(direction);
-	sprite.setRotation(angle);
+	sprite.setRotation(player->GetPlayerAngle());
 
 	SetPosition(player->GetPosition());
 	timer += dt;

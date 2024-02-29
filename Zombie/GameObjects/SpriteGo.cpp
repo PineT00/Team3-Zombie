@@ -110,6 +110,7 @@ void SpriteGo::Draw(sf::RenderWindow& window)
 		hitBox.setOutlineColor(sf::Color::Red);
 		hitBox.setOutlineThickness(1.f);
 		hitBox.setFillColor(sf::Color::Transparent);
+		hitBox.setRotation(sprite.getRotation());
 		hitBox.setSize({ bound.width, bound.height });
 
 		window.draw(hitBox);
