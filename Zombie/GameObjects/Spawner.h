@@ -19,7 +19,7 @@ public:
 	Spawner(const std::string& name = "");
 	~Spawner() override = default;
 
-	void Spawn();
+	virtual void Spawn();
 	void Spawn(int count);
 	void SetRadius(float r) { radius = r; }
 	

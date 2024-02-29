@@ -77,8 +77,6 @@ void Zombie::Update(float dt)
 	if (!isAlive)
 		return;
 
-
-
 	if (!isDash)
 	{
 		direction = player->GetPosition() - position;
@@ -107,7 +105,8 @@ void Zombie::FixedUpdate(float dt)
 		{
 			if (type == Zombie::Types::Bloater)
 			{
-				player->OnDamage(damage);
+				player->OnDamage(damage * 1.5f);
+				SOUND_MGR.PlaySfx("sound/zombieExplode.wav");
 				OnDie();
 			}
 			else
@@ -153,6 +152,7 @@ void Zombie::OnDamage(int damage)
 	if (hp <= 0)
 	{
 		hp = 0;
+		SOUND_MGR.PlaySfx("sound/splat.wav");
 		OnDie();
 	}
 }
@@ -180,11 +180,10 @@ void Zombie::OnDie()
 
 	if (type == Zombie::Types::Bloater)
 	{
-		effectBlood->SetScale({ 1.7f, 1.7f });
+		effectBlood->SetScale({ 2.f, 2.f });
 	}
 
 	sceneGame->AddGo(effectBlood);
-	SOUND_MGR.PlaySfx("sound/splat.wav");
 
 	int rand = Utils::RandomRange(0,3);  // 0, 1, 2
 	if (rand)
