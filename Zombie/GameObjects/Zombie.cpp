@@ -49,6 +49,18 @@ void Zombie::Init()
 	SetOrigin(Origins::MC);
 
 	hasHitBox = true;
+
+	if (type == Zombie::Types::Worm)
+	{
+		direction = sf::Vector2f(1.0f, 1.0f);
+
+		direction.x = Utils::RandomRange(-1, 1);
+		direction.y = Utils::RandomRange(-1, 1);
+
+		Utils::Normalize(direction);
+		float angle = Utils::Angle(direction);
+		SetRotation(angle);
+	}
 }
 
 void Zombie::Release()
@@ -77,7 +89,7 @@ void Zombie::Update(float dt)
 	if (!isAlive)
 		return;
 
-	if (!isDash)
+	if (!isDash && type != Zombie::Types::Worm)
 	{
 		direction = player->GetPosition() - position;
 		float distance = Utils::Magnitude(direction);
@@ -87,6 +99,29 @@ void Zombie::Update(float dt)
 	}
 
 	sf::Vector2f pos = position + direction * speed * dt;
+
+	if (type == Zombie::Types::Worm)
+	{
+		if (dashTimer < dashInterval)
+		{
+			direction = player->GetPosition() - position;
+			float distance = Utils::Magnitude(direction);
+			Utils::Normalize(direction);
+			float angle = Utils::Angle(direction);
+			speed = 1.f;
+			SetRotation(angle);
+		}
+		if (dashTimer > dashInterval)
+		{
+			speed = 500.f;
+		}
+		if (!sceneGame->IsInTileMap(pos))
+		{
+			float angle = Utils::Angle(direction);
+			SetRotation(angle);
+			dashTimer = 0.f;
+		}
+	}
 
 	if (sceneGame != nullptr)
 	{

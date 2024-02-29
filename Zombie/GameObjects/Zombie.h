@@ -13,7 +13,8 @@ public:
 	{
 		Bloater,
 		Chaser,
-		Crawler
+		Crawler,
+		Worm,
 	};
 	static const int TotalTypes = 3;
 	static Zombie* Create(Types zombieType);

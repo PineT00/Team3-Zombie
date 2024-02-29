@@ -40,11 +40,11 @@ void ZombieSpawner::Reset()
 	zombieTypes.push_back(Zombie::Types::Chaser);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
-	zombieTypes.push_back(Zombie::Types::Crawler);
-	zombieTypes.push_back(Zombie::Types::Crawler);
+	zombieTypes.push_back(Zombie::Types::Worm);
+	zombieTypes.push_back(Zombie::Types::Worm);
 
 	interval = 5.f;
 	spawnCount = 1;
-	radius = 450.f;
+	radius = 250.f;
 	timer = 0.f;
 }
