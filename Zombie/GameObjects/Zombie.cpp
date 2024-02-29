@@ -180,6 +180,7 @@ void Zombie::OnDie()
 
 	if (type == Zombie::Types::Bloater)
 	{
+		effectBlood->SetTexture("graphics/blood.png");
 		effectBlood->SetScale({ 2.f, 2.f });
 	}
 
