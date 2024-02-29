@@ -10,6 +10,12 @@ protected:
 	float speed;
 	int damage = 0;
 
+	float radius = 50.f;       //반경
+
+	float startAngle;          //시작 각도  :  look - 90  
+	float endAngel;            //종료 각도  :  look + 90  
+
+
 	SceneGame* sceneGame;
 public:
 	Melee(const std::string& name = "");
