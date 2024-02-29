@@ -153,12 +153,12 @@ void Player::Update(float dt)
 	}
 
 	//근접 무기 공격
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) && SCENE_MGR.GetDeveloperMode())
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right))
 	{
 		melee->SetActive(true);
 		melee->MeleeAttack(angle, MeleeSpeed, MeleeDamage);
 	}
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Middle))
+	if (InputMgr::GetKeyDown(sf::Keyboard::LShift))
 	{
 		sword->SetActive(true);
 		sword->SwordAttack(angle, MeleeSpeed, MeleeDamage);
