@@ -11,10 +11,12 @@ Melee::Melee(const std::string& name)
 
 void Melee::MeleeAttack(float angle, float t, int d)
 {
-	currentAngle = angle + 90;
-	endAngle = angle - 90;
-	SetPosition(player->GetPosition() + sf::Vector2f(std::cosf(currentAngle) * radius, std::sinf(currentAngle) * radius));
+	currentAngle = angle;
+	endAngle = angle + 360;
+	SetPosition(player->GetPosition());
 	angleSpeed = 180.f / t;
+	timer = 0.f;
+	interval = 5;
 	damage = d;
 }
 
@@ -22,7 +24,8 @@ void Melee::Init()
 {
 	SpriteGo::Init();
 	SetTexture("graphics/ball.png");
-	SetOrigin(Origins::MR);
+	sf::FloatRect ballBounds = sprite.getLocalBounds();
+	SetOrigin(sf::Vector2f(ballBounds.width + radius, ballBounds.height / 2.f));
 	
 	hasHitBox = true;
 }
@@ -38,15 +41,15 @@ void Melee::Reset()
 
 void Melee::Update(float dt)
 {
-	currentAngle -= angleSpeed * dt;
+	currentAngle += angleSpeed * dt;
 	
-	sf::Vector2f pos = player->GetPosition() + sf::Vector2f(std::cosf(currentAngle)* radius, std::sinf(currentAngle)* radius);
+	sf::Vector2f pos = player->GetPosition();
 	SetPosition(pos);
 	SetRotation(currentAngle);
-	if (currentAngle < endAngle)
+	
+	if (currentAngle > endAngle)
 	{
 		SetActive(false);
-
 	}
 }
 
@@ -60,13 +63,18 @@ void Melee::FixedUpdate(float dt)
 
 		if (GetGlobalBounds().intersects(go->GetGlobalBounds()))
 		{
-			
 
 			Zombie* zombie = dynamic_cast<Zombie*>(go);
 			if (zombie != nullptr)
 				zombie->OnDamage(damage);
 
 			break;
+		}
+
+		timer += dt;
+		if (timer > interval)
+		{
+			SetActive(false);
 		}
 	}
 }

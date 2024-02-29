@@ -166,7 +166,7 @@ void Player::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Q) && !isThrowing)
 	{
 		boomerang->SetActive(true);
-		boomerang->BoomerangAttack(look, boomerangSpeed, boomerangDamage);
+		boomerang->BoomerangAttack(look, MeleeSpeed, MeleeDamage);
 		boomerang->SetPosition(position);
 
 		isThrowing = true;
