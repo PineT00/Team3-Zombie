@@ -328,6 +328,9 @@ void SceneGame::SetStatus(Status newStatus)
 		uiHud->SetMessage("Next Wave!");
 		uiHud->SetMessageActive(true);
 		FRAMEWORK.SetTimeScale(0.f);
+
+		player->SetThrowing(false);
+		FindGo("Boomerang")->SetActive(false);
 		break;
 	case Status::GameOver:
 		if (score > hiscore)

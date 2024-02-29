@@ -6,6 +6,7 @@
 #include "UiHud.h"
 #include "Melee.h"
 #include "Sword.h"
+#include "Boomerang.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -33,6 +34,10 @@ void Player::Release()
 	if (sword != nullptr)
 		delete sword;
 	sword = nullptr;
+
+	if (boomerang != nullptr)
+		delete boomerang;
+	boomerang = nullptr;
 }
 
 void Player::Reset()
@@ -51,14 +56,19 @@ void Player::Reset()
 	melee->Init();
 	melee->Reset();
 	melee->SetActive(false);
-
 	sceneGame->AddGo(melee);
+
 	sword = new Sword("Sword");
 	sword->Init();
 	sword->Reset();
 	sword->SetActive(false);
-
 	sceneGame->AddGo(sword);
+
+	boomerang = new Boomerang("Boomerang");
+	boomerang->Init();
+	boomerang->Reset();
+	boomerang->SetActive(false);
+	sceneGame->AddGo(boomerang);
 }
 
 void Player::Update(float dt)
@@ -142,6 +152,15 @@ void Player::Update(float dt)
 		sword->SetActive(true);
 		sword->SwordAttack(angle, MeleeSpeed, MeleeDamage);
 	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Q) && !isThrowing)
+	{
+		boomerang->SetActive(true);
+		boomerang->BoomerangAttack(look, boomerangSpeed, boomerangDamage);
+		boomerang->SetPosition(position);
+
+		isThrowing = true;
+	}
+
 	if (SCENE_MGR.GetDeveloperMode())
 	{
 		isNoDamage = true;

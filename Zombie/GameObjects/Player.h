@@ -6,6 +6,7 @@ class Item;
 class UiHud;
 class Melee;
 class Sword;
+class Boomerang;
 
 class Player : public SpriteGo
 {
@@ -29,6 +30,7 @@ protected:
 	UiHud* uiHud = nullptr;
 	Melee* melee = nullptr;
 	Sword* sword = nullptr;
+	Boomerang* boomerang = nullptr;
 
 
 	bool isFiring = false;
@@ -39,6 +41,10 @@ protected:
 	
 	float MeleeSpeed = 0.5f;     //근접 공격 속도
 	int MeleeDamage = 10;          //근접 공격 데미지
+
+	bool isThrowing = false;
+	float boomerangSpeed = 1000.f;
+	int boomerangDamage = 5;
 
 public:
 	Player(const std::string& name = "");
@@ -52,6 +58,7 @@ public:
 	int SetPlayerMaxMagazine(int magazineUp) { return maxMagazine += magazineUp; }
 	int SetPlayerMaxHP(int hpUp) { return maxHp += hpUp; }
 	float SetPlayerSpeed(int speedUp) { return speed += speedUp; }
+	void SetThrowing(bool isThrowing) { this->isThrowing = isThrowing; }
 
 
 	void Init() override;
