@@ -8,7 +8,7 @@ Spawner::Spawner(const std::string& name) : GameObject(name)
 
 void Spawner::Spawn()
 {
-	sf::Vector2f pos = position + Utils::RandomInRing(radius, 100.f);
+	sf::Vector2f pos = position + Utils::RandomInRing(radius, 200.f);
 	if (sceneGame != nullptr)
 	{
 		pos = sceneGame->ClampByTileMap(pos);

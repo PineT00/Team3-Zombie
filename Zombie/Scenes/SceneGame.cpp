@@ -243,12 +243,20 @@ void SceneGame::UpdateNextWave(float dt)
 		SetStatus(Status::Game);
 
 		++wave;
-		zombieCount *= 2;
-		zombieNum = zombieCount;
 
 		player->SetPosition({ 0.f, 0.f });
-		tileMap->Set({ wave * 10, wave * 10 }, { 50.f, 50.f });
-		tileMap->SetOrigin(Origins::MC);
+		if (wave < 7)
+		{
+			tileMap->Set({ wave * 9, wave * 7 }, { 50.f, 50.f });
+			tileMap->SetOrigin(Origins::MC);
+
+			zombieCount *= 2;
+		}
+		else
+		{
+			zombieCount += 10;
+		}
+		zombieNum = zombieCount;
 
 		for (auto item : itemList)
 		{
@@ -259,6 +267,8 @@ void SceneGame::UpdateNextWave(float dt)
 		zombieSpawner->SetRadius(250.f * wave);
 
 		zombieSpawner->Spawn(zombieNum);
+
+		dynamic_cast<ZombieSpawner*>(zombieSpawner)->NextWave(wave);
 
 		uiHud->SetWave(wave);
 		uiHud->SetZombieCount(zombieNum);

@@ -51,7 +51,6 @@ public:
 	const std::list<GameObject*>& GetZombieList() const { return zombieList; }
 
 
-
 	UiHud* GetHud() const { return uiHud; }
 
 	int AddScore(const int score);

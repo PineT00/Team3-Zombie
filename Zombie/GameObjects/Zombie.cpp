@@ -223,8 +223,13 @@ void Zombie::OnDie()
 
 	if (type == Zombie::Types::Bloater)
 	{
-		effectBlood->SetTexture("graphics/blood.png");
+		effectBlood->SetTexture("graphics/blood2.png");
 		effectBlood->SetScale({ 2.f, 2.f });
+	}
+	if (type == Zombie::Types::Worm)
+	{
+		effectBlood->SetTexture("graphics/blood3.png");
+		effectBlood->SetScale({ 1.5f, 1.5f });
 	}
 
 	sceneGame->AddGo(effectBlood);

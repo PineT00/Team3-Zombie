@@ -7,21 +7,21 @@ ZombieSpawner::ZombieSpawner(const std::string& name) : Spawner(name)
 }
 
 
-void ZombieSpawner::Spawn()
-{
-	sf::Vector2f pos = position + Utils::RandomOnUnitCircle() * radius;
-	if (sceneGame != nullptr)
-	{
-		pos = sceneGame->ClampByTileMap(pos);
-	}
-	GameObject* newGo = Create();
-	newGo->Init();
-	newGo->Reset();
-	newGo->SetPosition(pos);
-
-	SCENE_MGR.GetCurrentScene()->AddGo(newGo);
-
-}
+//void ZombieSpawner::Spawn()
+//{
+//	sf::Vector2f pos = position + Utils::RandomOnUnitCircle() * radius;
+//	if (sceneGame != nullptr)
+//	{
+//		pos = sceneGame->ClampByTileMap(pos);
+//	}
+//	GameObject* newGo = Create();
+//	newGo->Init();
+//	newGo->Reset();
+//	newGo->SetPosition(pos);
+//
+//	SCENE_MGR.GetCurrentScene()->AddGo(newGo);
+//
+//}
 
 GameObject* ZombieSpawner::Create()
 {
@@ -40,11 +40,47 @@ void ZombieSpawner::Reset()
 	zombieTypes.push_back(Zombie::Types::Chaser);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
+	zombieTypes.push_back(Zombie::Types::Crawler);
+	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Worm);
 	zombieTypes.push_back(Zombie::Types::Worm);
+
 
 	interval = 5.f;
 	spawnCount = 1;
 	radius = 250.f;
 	timer = 0.f;
+}
+
+void ZombieSpawner::NextWave(int a)
+{
+	if (a > 3 && a <= 6)
+	{
+		zombieTypes.clear();
+		zombieTypes.push_back(Zombie::Types::Bloater);
+		zombieTypes.push_back(Zombie::Types::Chaser);
+		zombieTypes.push_back(Zombie::Types::Chaser);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Worm);
+		zombieTypes.push_back(Zombie::Types::Worm);
+	}
+
+
+	if (a > 6)
+	{
+		zombieTypes.clear();
+		zombieTypes.push_back(Zombie::Types::Bloater);
+		zombieTypes.push_back(Zombie::Types::Chaser);
+		zombieTypes.push_back(Zombie::Types::Chaser);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Worm);
+		zombieTypes.push_back(Zombie::Types::Worm);
+		zombieTypes.push_back(Zombie::Types::Worm);
+		zombieTypes.push_back(Zombie::Types::Worm);
+	}
+
+
 }

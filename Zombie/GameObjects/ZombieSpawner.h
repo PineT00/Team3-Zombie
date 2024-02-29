@@ -15,9 +15,11 @@ public:
 	ZombieSpawner(const std::string& name = "");
 	~ZombieSpawner() override = default;
 
-	void Spawn() override;
+	//void Spawn() override;
 
 	GameObject* Create() override;
 
 	void Reset() override;
+
+	void NextWave(int wave);
 };
