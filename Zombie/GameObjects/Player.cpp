@@ -6,6 +6,7 @@
 #include "UiHud.h"
 #include "Melee.h"
 #include "Sword.h"
+#include "Fencing.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -33,6 +34,11 @@ void Player::Release()
 	if (sword != nullptr)
 		delete sword;
 	sword = nullptr;
+
+	if (fencing != nullptr)
+		delete fencing;
+	fencing = nullptr;
+	
 }
 
 void Player::Reset()
@@ -51,14 +57,19 @@ void Player::Reset()
 	melee->Init();
 	melee->Reset();
 	melee->SetActive(false);
-
 	sceneGame->AddGo(melee);
+
 	sword = new Sword("Sword");
 	sword->Init();
 	sword->Reset();
 	sword->SetActive(false);
-
 	sceneGame->AddGo(sword);
+
+	fencing = new Fencing("fencing");
+	fencing->Init();
+	fencing->Reset();
+	fencing->SetActive(false);
+	sceneGame->AddGo(fencing);
 }
 
 void Player::Update(float dt)
@@ -141,6 +152,11 @@ void Player::Update(float dt)
 	{
 		sword->SetActive(true);
 		sword->SwordAttack(angle, MeleeSpeed, MeleeDamage);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::E))
+	{
+		fencing->SetActive(true);
+		fencing->stingAttack(look, MeleeDamage);
 	}
 	if (SCENE_MGR.GetDeveloperMode())
 	{

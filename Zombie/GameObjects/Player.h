@@ -6,6 +6,7 @@ class Item;
 class UiHud;
 class Melee;
 class Sword;
+class Fencing;
 
 class Player : public SpriteGo
 {
@@ -29,7 +30,7 @@ protected:
 	UiHud* uiHud = nullptr;
 	Melee* melee = nullptr;
 	Sword* sword = nullptr;
-
+	Fencing* fencing = nullptr;
 
 	bool isFiring = false;
 	float fireInterval = 0.5f;

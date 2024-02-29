@@ -43,8 +43,6 @@ void Sword::Update(float dt)
 {
 	currentAngle += angleSpeed * dt;
 
-	std::cout << currentAngle << std::endl;
-
 	SetPosition(player->GetPosition());
 	SetRotation(currentAngle);
 	timer += dt;

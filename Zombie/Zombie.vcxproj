@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="DataTables\DataTableMgr.cpp" />
     <ClCompile Include="DataTables\DataTable.cpp" />
+    <ClCompile Include="Fencing.cpp" />
     <ClCompile Include="GameObjects\Bullet.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp">
@@ -181,6 +182,7 @@
     <ClInclude Include="DataTables\DataTableMgr.h" />
     <ClInclude Include="DataTables\DataTable.h" />
     <ClInclude Include="DataTables\rapidcsv.h" />
+    <ClInclude Include="Fencing.h" />
     <ClInclude Include="GameObjects\Bullet.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\Defines.h" />
