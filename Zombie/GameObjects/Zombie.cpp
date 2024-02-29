@@ -17,14 +17,29 @@ Zombie* Zombie::Create(Types zombieType)
 	zombie->speed = data.speed;
 	zombie->damage = data.damage;
 	zombie->attackInterval = data.attackInterval;
-
 	zombie->sortLayer = 1;
+
+	zombie->dashSpeed = zombie->speed * 5.5f;
+	zombie->originalSpeed = zombie->speed;
+
 
 	return zombie;
 }
 
 Zombie::Zombie(const std::string& name) : SpriteGo(name)
 {
+}
+
+void Zombie::Dash(bool isDash)
+{
+	if (isDash)
+	{
+		speed = dashSpeed;
+	}
+	else
+	{
+		speed = originalSpeed;
+	}
 }
 
 void Zombie::Init()
@@ -38,6 +53,18 @@ void Zombie::Init()
 	Utils::SetOrigin(hpBar, Origins::BL);
 
 	hasHitBox = true;
+
+	if (type == Zombie::Types::Worm)
+	{
+		direction = sf::Vector2f(1.0f, 1.0f);
+
+		direction.x = Utils::RandomRange(-1, 1);
+		direction.y = Utils::RandomRange(-1, 1);
+
+		Utils::Normalize(direction);
+		float angle = Utils::Angle(direction);
+		SetRotation(angle);
+	}
 }
 
 void Zombie::Release()
@@ -66,14 +93,40 @@ void Zombie::Update(float dt)
 	if (!isAlive)
 		return;
 
-	direction = player->GetPosition() - position;
-	float distance = Utils::Magnitude(direction);
-	Utils::Normalize(direction);
-
-	float angle = Utils::Angle(direction);
-	SetRotation(angle);
+	if (!isDash && type != Zombie::Types::Worm)
+	{
+		direction = player->GetPosition() - position;
+		float distance = Utils::Magnitude(direction);
+		Utils::Normalize(direction);
+		float angle = Utils::Angle(direction);
+		SetRotation(angle);
+	}
 
 	sf::Vector2f pos = position + direction * speed * dt;
+
+	if (type == Zombie::Types::Worm)
+	{
+		if (dashTimer < dashInterval)
+		{
+			direction = player->GetPosition() - position;
+			float distance = Utils::Magnitude(direction);
+			Utils::Normalize(direction);
+			float angle = Utils::Angle(direction);
+			speed = 1.f;
+			SetRotation(angle);
+		}
+		if (dashTimer > dashInterval)
+		{
+			speed = 500.f;
+		}
+		if (!sceneGame->IsInTileMap(pos))
+		{
+			float angle = Utils::Angle(direction);
+			SetRotation(angle);
+			dashTimer = 0.f;
+		}
+	}
+
 	if (sceneGame != nullptr)
 	{
 		pos = sceneGame->ClampByTileMap(pos);
@@ -91,12 +144,37 @@ void Zombie::FixedUpdate(float dt)
 	{
 		if (GetGlobalBounds().intersects(player->GetGlobalBounds()))
 		{
-			player->OnDamage(damage);
-			attackInterval = 0.f;
+			if (type == Zombie::Types::Bloater)
+			{
+				player->OnDamage(damage * 1.5f);
+				SOUND_MGR.PlaySfx("sound/zombieExplode.wav");
+				OnDie();
+			}
+			else
+			{
+				player->OnDamage(damage);
+				attackInterval = 0.f;
+			}
 		}
 	}
 
 	hpBar.setScale({ (float)hp / maxHp, 1.f });
+
+	dashTimer += dt;
+	if (type == Zombie::Types::Chaser)
+	{
+		if (!isDash && dashTimer > dashInterval)
+		{
+			speed = dashSpeed;
+			isDash = true;
+		}
+		if (isDash && dashTimer > dashInterval + dashTime)
+		{
+			speed = originalSpeed;
+			dashTimer = 0.f;
+			isDash = false;
+		}
+	}
 }
 
 void Zombie::Draw(sf::RenderWindow& window)
@@ -117,8 +195,8 @@ void Zombie::OnDamage(int damage)
 	if (hp <= 0)
 	{
 		hp = 0;
-		OnDie();
 		SOUND_MGR.PlaySfx("sound/splat.wav");
+		OnDie();
 	}
 }
 
@@ -142,6 +220,13 @@ void Zombie::OnDie()
 	effectBlood->sortOrder = 1;
 	effectBlood->SetPosition(position);
 	effectBlood->SetRotation(Utils::RandomRange(0.f, 360.f));
+
+	if (type == Zombie::Types::Bloater)
+	{
+		effectBlood->SetTexture("graphics/blood.png");
+		effectBlood->SetScale({ 2.f, 2.f });
+	}
+
 	sceneGame->AddGo(effectBlood);
 
 	int rand = Utils::RandomRange(0,3);  // 0, 1, 2

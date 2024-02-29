@@ -1,10 +1,27 @@
 #include "pch.h"
 #include "ZombieSpawner.h"
+#include "SceneGame.h"
 
 ZombieSpawner::ZombieSpawner(const std::string& name) : Spawner(name)
 {
 }
 
+
+void ZombieSpawner::Spawn()
+{
+	sf::Vector2f pos = position + Utils::RandomOnUnitCircle() * radius;
+	if (sceneGame != nullptr)
+	{
+		pos = sceneGame->ClampByTileMap(pos);
+	}
+	GameObject* newGo = Create();
+	newGo->Init();
+	newGo->Reset();
+	newGo->SetPosition(pos);
+
+	SCENE_MGR.GetCurrentScene()->AddGo(newGo);
+
+}
 
 GameObject* ZombieSpawner::Create()
 {
@@ -23,8 +40,8 @@ void ZombieSpawner::Reset()
 	zombieTypes.push_back(Zombie::Types::Chaser);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
-	zombieTypes.push_back(Zombie::Types::Crawler);
-	zombieTypes.push_back(Zombie::Types::Crawler);
+	zombieTypes.push_back(Zombie::Types::Worm);
+	zombieTypes.push_back(Zombie::Types::Worm);
 
 	interval = 5.f;
 	spawnCount = 1;

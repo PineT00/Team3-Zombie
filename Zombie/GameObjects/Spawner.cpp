@@ -13,7 +13,6 @@ void Spawner::Spawn()
 	{
 		pos = sceneGame->ClampByTileMap(pos);
 	}
-
 	GameObject* newGo = Create();
 	newGo->Init();
 	newGo->Reset();

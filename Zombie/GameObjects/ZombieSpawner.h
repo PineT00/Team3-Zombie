@@ -10,8 +10,12 @@ protected:
 	std::vector<Zombie::Types> zombieTypes;
 
 public:
+	SceneGame* sceneGame = nullptr;
+
 	ZombieSpawner(const std::string& name = "");
 	~ZombieSpawner() override = default;
+
+	void Spawn() override;
 
 	GameObject* Create() override;
 

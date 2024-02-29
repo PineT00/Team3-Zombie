@@ -66,7 +66,7 @@ void StatusUpgrade::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num4))
 	{
-		player->SetPlayerSpeed(100);
+		player->SetPlayerSpeed(50);
 		SOUND_MGR.PlaySfx("sound/powerup.wav");
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num5))
