@@ -4,6 +4,7 @@
 class SceneGame;
 class Item;
 class UiHud;
+class Melee;
 
 class Player : public SpriteGo
 {
@@ -25,18 +26,16 @@ protected:
 
 	SceneGame* sceneGame = nullptr;
 	UiHud* uiHud = nullptr;
+	Melee* melee = nullptr;
 
 	bool isFiring = false;
 	float fireInterval = 0.5f;
 	float fireTimer = 0.f;
 	float bulletSpeed = 1000.f;
 	int bulletDamage = 10;
-
-	bool isMelee = false;         //근접 공격
-	float meleeInterval = 0.2f;   //근접 공격 간격
-	float MeleeTimer = 0.f;       //근접 공격 주기
-	float MeleeSpeed = 1000.f;    //근접 공격 속도
-	int MeleeDamage = 10;         //근접 공격 데미지
+	
+	float MeleeSpeed = 0.5f;     //근접 공격 속도
+	int MeleeDamage = 10;          //근접 공격 데미지
 
 public:
 	Player(const std::string& name = "");
@@ -59,7 +58,8 @@ public:
 	void FixedUpdate(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void Fire ();
+	void Fire();
+	void Attack();
 
 	void OnDamage(int damage);
 	void OnDie();

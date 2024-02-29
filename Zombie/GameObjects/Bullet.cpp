@@ -61,7 +61,7 @@ void Bullet::FixedUpdate(float dt)
 
 			Zombie* zombie = dynamic_cast<Zombie*>(go);
 			if (zombie != nullptr)
-				zombie->OnDamage(10);
+				zombie->OnDamage(damage);
 
 			break;
 		}

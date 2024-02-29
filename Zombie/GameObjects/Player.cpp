@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "Item.h"
 #include "UiHud.h"
+#include "Melee.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -24,6 +25,9 @@ void Player::Init()
 void Player::Release()
 {
 	SpriteGo::Release();
+	if(melee != nullptr)
+		delete melee;
+	melee = nullptr;
 }
 
 void Player::Reset()
@@ -38,6 +42,12 @@ void Player::Reset()
 
 	uiHud->SetHp(hp, maxHp);
 	uiHud->SetAmmo(magazine, ammo);
+	melee = new Melee("Melee");
+	melee->Init();
+	melee->Reset();
+	melee->SetActive(false);
+
+	sceneGame->AddGo(melee);
 }
 
 void Player::Update(float dt)
@@ -111,19 +121,10 @@ void Player::Update(float dt)
 	}
 
 	//근접 무기 공격
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right))
+	if (InputMgr::GetMouseButton(sf::Mouse::Right) && SCENE_MGR.GetDeveloperMode())
 	{
-		isMelee = true;
-	}
-	if (InputMgr::GetMouseButtonUp(sf::Mouse::Right))
-	{
-		isMelee = false;
-	}
-	
-	MeleeTimer += dt;
-	if (isMelee && MeleeTimer > meleeInterval)
-	{
-
+		melee->SetActive(true);
+		melee->MeleeAttack(angle, MeleeSpeed, MeleeDamage);
 	}
 	
 	if (SCENE_MGR.GetDeveloperMode())
@@ -138,8 +139,6 @@ void Player::Update(float dt)
 			isNoDamage = false;
 		}
 	}
-	
-
 }
 
 void Player::FixedUpdate(float dt)
