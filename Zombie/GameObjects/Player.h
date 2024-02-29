@@ -72,7 +72,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void Fire();
-	void Attack();
+	// void Attack();
 
 	void OnDamage(int damage);
 	void OnDie();
