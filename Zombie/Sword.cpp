@@ -1,33 +1,36 @@
 #include "pch.h"
-#include "Melee.h"
+#include "Sword.h"
 #include "Player.h"
 #include "SceneGame.h"
 #include "Zombie.h"
 
-Melee::Melee(const std::string& name)
+Sword::Sword(const std::string& name)
 	:SpriteGo(name)
 {
 }
 
-void Melee::MeleeAttack(float angle, float t, int d)
+void Sword::SwordAttack(float angle, float t, int d)
 {
 	currentAngle = angle + 90;
 	endAngle = angle - 90;
-	SetPosition(player->GetPosition() + sf::Vector2f(std::cosf(currentAngle) * radius, std::sinf(currentAngle) * radius));
+	SetPosition(player->GetPosition());
 	angleSpeed = 180.f / t;
+	timer = 0.f;
+	interval = t;
 	damage = d;
 }
 
-void Melee::Init()
+void Sword::Init()
 {
 	SpriteGo::Init();
-	SetTexture("graphics/ball.png");
-	SetOrigin(Origins::MR);
-	
+	SetTexture("graphics/sword.png");
+	sf::FloatRect swordBounds = sprite.getLocalBounds();
+	SetOrigin(sf::Vector2f(swordBounds.width + radius, swordBounds.height / 2.f));
+
 	hasHitBox = true;
 }
 
-void Melee::Reset()
+void Sword::Reset()
 {
 	SpriteGo::Reset();
 
@@ -36,21 +39,23 @@ void Melee::Reset()
 
 }
 
-void Melee::Update(float dt)
+void Sword::Update(float dt)
 {
-	currentAngle -= angleSpeed * dt;
-	
-	sf::Vector2f pos = player->GetPosition() + sf::Vector2f(std::cosf(currentAngle)* radius, std::sinf(currentAngle)* radius);
-	SetPosition(pos);
-	SetRotation(currentAngle);
-	if (currentAngle < endAngle)
-	{
-		SetActive(false);
+	currentAngle += angleSpeed * dt;
 
+	std::cout << currentAngle << std::endl;
+
+	SetPosition(player->GetPosition());
+	SetRotation(currentAngle);
+	timer += dt;
+	if (timer > interval)
+	{
+		timer = 0.f;
+		SetActive(false);
 	}
 }
 
-void Melee::FixedUpdate(float dt)
+void Sword::FixedUpdate(float dt)
 {
 	const std::list<GameObject*>& list = sceneGame->GetZombieList();
 	for (auto go : list)
@@ -60,7 +65,7 @@ void Melee::FixedUpdate(float dt)
 
 		if (GetGlobalBounds().intersects(go->GetGlobalBounds()))
 		{
-			
+			SetActive(false);
 
 			Zombie* zombie = dynamic_cast<Zombie*>(go);
 			if (zombie != nullptr)

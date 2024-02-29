@@ -5,6 +5,7 @@
 #include "Item.h"
 #include "UiHud.h"
 #include "Melee.h"
+#include "Sword.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -28,6 +29,10 @@ void Player::Release()
 	if(melee != nullptr)
 		delete melee;
 	melee = nullptr;
+
+	if (sword != nullptr)
+		delete sword;
+	sword = nullptr;
 }
 
 void Player::Reset()
@@ -48,6 +53,12 @@ void Player::Reset()
 	melee->SetActive(false);
 
 	sceneGame->AddGo(melee);
+	sword = new Sword("Sword");
+	sword->Init();
+	sword->Reset();
+	sword->SetActive(false);
+
+	sceneGame->AddGo(sword);
 }
 
 void Player::Update(float dt)
@@ -121,12 +132,16 @@ void Player::Update(float dt)
 	}
 
 	//근접 무기 공격
-	if (InputMgr::GetMouseButton(sf::Mouse::Right) && SCENE_MGR.GetDeveloperMode())
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) && SCENE_MGR.GetDeveloperMode())
 	{
 		melee->SetActive(true);
 		melee->MeleeAttack(angle, MeleeSpeed, MeleeDamage);
 	}
-	
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::XButton1))
+	{
+		sword->SetActive(true);
+		sword->SwordAttack(angle, MeleeSpeed, MeleeDamage);
+	}
 	if (SCENE_MGR.GetDeveloperMode())
 	{
 		isNoDamage = true;

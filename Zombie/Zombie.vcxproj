@@ -175,6 +175,7 @@
     <ClCompile Include="DataTables\StringTable.cpp" />
     <ClCompile Include="DataTables\ZombieTable.cpp" />
     <ClCompile Include="StatusUpgrade.cpp" />
+    <ClCompile Include="Sword.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTableMgr.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="DataTables\StringTable.h" />
     <ClInclude Include="DataTables\ZombieTable.h" />
     <ClInclude Include="StatusUpgrade.h" />
+    <ClInclude Include="Sword.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
