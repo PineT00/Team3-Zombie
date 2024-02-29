@@ -13,6 +13,7 @@ public:
 	static float RandomRange(float min, float max);
 	static sf::Vector2f RandomOnUnitCircle();
 	static sf::Vector2f RandomInUnitCircle();
+	static sf::Vector2f RandomInRing(float outRadius, float inRadius);
 	static int RandomRange(int min, int maxExclude);
 
 

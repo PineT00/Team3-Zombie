@@ -53,6 +53,18 @@ sf::Vector2f Utils::RandomInUnitCircle()
 	return RandomOnUnitCircle() * RandomValue();
 }
 
+sf::Vector2f Utils::RandomInRing(float outRadius, float inRadius)
+{
+	sf::Vector2f pos(0, 0);
+	if (inRadius >= outRadius)
+		return pos;
+	do
+	{
+		pos = RandomInUnitCircle() * outRadius;
+	} while (Magnitude(pos) <= inRadius);
+	return pos;
+}
+
 int Utils::RandomRange(int min, int maxExclude)
 {
 	int range = maxExclude - min;
