@@ -105,8 +105,16 @@ void Zombie::FixedUpdate(float dt)
 	{
 		if (GetGlobalBounds().intersects(player->GetGlobalBounds()))
 		{
-			player->OnDamage(damage);
-			attackInterval = 0.f;
+			if (type == Zombie::Types::Bloater)
+			{
+				player->OnDamage(damage);
+				OnDie();
+			}
+			else
+			{
+				player->OnDamage(damage);
+				attackInterval = 0.f;
+			}
 		}
 	}
 
@@ -125,6 +133,8 @@ void Zombie::FixedUpdate(float dt)
 			isDash = false;
 		}
 	}
+
+
 }
 
 void Zombie::Draw(sf::RenderWindow& window)
@@ -144,7 +154,6 @@ void Zombie::OnDamage(int damage)
 	{
 		hp = 0;
 		OnDie();
-		SOUND_MGR.PlaySfx("sound/splat.wav");
 	}
 }
 
@@ -168,7 +177,14 @@ void Zombie::OnDie()
 	effectBlood->sortOrder = 1;
 	effectBlood->SetPosition(position);
 	effectBlood->SetRotation(Utils::RandomRange(0.f, 360.f));
+
+	if (type == Zombie::Types::Bloater)
+	{
+		effectBlood->SetScale({ 1.7f, 1.7f });
+	}
+
 	sceneGame->AddGo(effectBlood);
+	SOUND_MGR.PlaySfx("sound/splat.wav");
 
 	int rand = Utils::RandomRange(0,3);  // 0, 1, 2
 	if (rand)

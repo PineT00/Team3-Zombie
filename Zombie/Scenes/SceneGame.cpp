@@ -302,6 +302,7 @@ void SceneGame::SetStatus(Status newStatus)
 	switch (currStatus)
 	{
 	case Status::Awake:
+		title->SetTexture("graphics/background2.png");
 		title->SetActive(true);
 		textTitle->SetActive(true);
 		upgradeMenu->SetActive(false);
@@ -320,6 +321,7 @@ void SceneGame::SetStatus(Status newStatus)
 		FRAMEWORK.SetTimeScale(1.f);
 		break;
 	case Status::NextWave:
+		title->SetTexture("graphics/background.png");
 		title->SetActive(true);
 		upgradeMenu->SetActive(true);
 		uiHud->SetActive(false);
