@@ -15,8 +15,6 @@ void Melee::MeleeAttack(float angle, float t, int d)
 	endAngle = angle + 360;
 	SetPosition(player->GetPosition());
 	angleSpeed = 180.f / t;
-	timer = 0.f;
-	interval = 5;
 	damage = d;
 }
 
