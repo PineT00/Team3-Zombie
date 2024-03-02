@@ -49,8 +49,10 @@ protected:
 
 	float dashInterval = 3.f;
 	float dashTimer = 0.f;
-	float dashTime = 1.f;
+	float dashTime = 0.7f;
 
+	float wormInterval = 3.5f;
+	float wormTimer = 0.f;
 
 	Zombie(const std::string& name = ""); // 외부에서 좀비를 생성 못하도록
 

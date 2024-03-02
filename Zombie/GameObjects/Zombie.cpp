@@ -19,7 +19,7 @@ Zombie* Zombie::Create(Types zombieType)
 	zombie->attackInterval = data.attackInterval;
 	zombie->sortLayer = 1;
 
-	zombie->dashSpeed = zombie->speed * 5.5f;
+	zombie->dashSpeed = zombie->speed * 5.f;
 	zombie->originalSpeed = zombie->speed;
 
 
@@ -104,9 +104,10 @@ void Zombie::Update(float dt)
 
 	sf::Vector2f pos = position + direction * speed * dt;
 
+	wormTimer += dt;
 	if (type == Zombie::Types::Worm)
 	{
-		if (dashTimer < dashInterval)
+		if (wormTimer < wormInterval)
 		{
 			direction = player->GetPosition() - position;
 			float distance = Utils::Magnitude(direction);
@@ -115,7 +116,7 @@ void Zombie::Update(float dt)
 			speed = 1.f;
 			SetRotation(angle);
 		}
-		if (dashTimer > dashInterval)
+		if (wormTimer > wormInterval)
 		{
 			speed = 500.f;
 		}
@@ -123,7 +124,7 @@ void Zombie::Update(float dt)
 		{
 			float angle = Utils::Angle(direction);
 			SetRotation(angle);
-			dashTimer = 0.f;
+			wormTimer = 0.f;
 		}
 	}
 
@@ -171,7 +172,8 @@ void Zombie::FixedUpdate(float dt)
 		if (isDash && dashTimer > dashInterval + dashTime)
 		{
 			speed = originalSpeed;
-			dashTimer = 0.f;
+			int rand = Utils::RandomRange(0, 8);
+			dashTimer = (float)0.1 * rand;
 			isDash = false;
 		}
 	}

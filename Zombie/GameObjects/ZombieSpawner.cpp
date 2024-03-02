@@ -35,15 +35,12 @@ void ZombieSpawner::Reset()
 	Spawner::Reset();
 
 	zombieTypes.clear();
-	zombieTypes.push_back(Zombie::Types::Bloater);
 	zombieTypes.push_back(Zombie::Types::Chaser);
 	zombieTypes.push_back(Zombie::Types::Chaser);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
 	zombieTypes.push_back(Zombie::Types::Crawler);
-	zombieTypes.push_back(Zombie::Types::Worm);
-	zombieTypes.push_back(Zombie::Types::Worm);
 
 
 	interval = 5.f;
@@ -54,7 +51,8 @@ void ZombieSpawner::Reset()
 
 void ZombieSpawner::NextWave(int a)
 {
-	if (a > 3 && a <= 6)
+
+	if (a > 2 && a <= 4)
 	{
 		zombieTypes.clear();
 		zombieTypes.push_back(Zombie::Types::Bloater);
@@ -63,10 +61,22 @@ void ZombieSpawner::NextWave(int a)
 		zombieTypes.push_back(Zombie::Types::Crawler);
 		zombieTypes.push_back(Zombie::Types::Crawler);
 		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+
+	}
+
+	if (a > 4 && a <= 6)
+	{
+		zombieTypes.clear();
+		zombieTypes.push_back(Zombie::Types::Bloater);
+		zombieTypes.push_back(Zombie::Types::Chaser);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
 		zombieTypes.push_back(Zombie::Types::Worm);
 		zombieTypes.push_back(Zombie::Types::Worm);
 	}
-
 
 	if (a > 6)
 	{
@@ -76,7 +86,8 @@ void ZombieSpawner::NextWave(int a)
 		zombieTypes.push_back(Zombie::Types::Chaser);
 		zombieTypes.push_back(Zombie::Types::Crawler);
 		zombieTypes.push_back(Zombie::Types::Crawler);
-		zombieTypes.push_back(Zombie::Types::Worm);
+		zombieTypes.push_back(Zombie::Types::Crawler);
+		zombieTypes.push_back(Zombie::Types::Crawler);
 		zombieTypes.push_back(Zombie::Types::Worm);
 		zombieTypes.push_back(Zombie::Types::Worm);
 		zombieTypes.push_back(Zombie::Types::Worm);
