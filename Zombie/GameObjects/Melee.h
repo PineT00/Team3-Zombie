@@ -13,8 +13,6 @@ protected:
 
 	float radius = 50.f;         //반경
 
-	float timer = 0.f;
-	float interval = 0.f;
 	float currentAngle;          //시작 각도  :  Utils::Angle(look) + 90  
 	float endAngle;              //종료 각도  :  Utils::Angle(look) - 90  
 

@@ -71,8 +71,7 @@ void Melee::FixedUpdate(float dt)
 			break;
 		}
 
-		timer += dt;
-		if (timer > interval)
+		if (currentAngle > endAngle)
 		{
 			SetActive(false);
 		}
