@@ -15,6 +15,7 @@ public:
 	enum class Status
 	{
 		Awake,
+		MeleeSelect,
 		Game,
 		NextWave,
 		GameOver,
@@ -42,6 +43,9 @@ protected:
 	int zombieNum = 2;
 	int zombieCount = 2;
 	int hiscore = 0;
+
+	int meleeChoice = 0;
+
 public:
 	SceneGame(SceneIds id);
 	~SceneGame() override = default;
@@ -49,12 +53,14 @@ public:
 	bool IsInTileMap(const sf::Vector2f& point);
 	sf::Vector2f ClampByTileMap(const sf::Vector2f point);
 	const std::list<GameObject*>& GetZombieList() const { return zombieList; }
-
+	sf::Font& font = RES_MGR_FONT.Get("fonts/zombiecontrol.ttf");
 
 	UiHud* GetHud() const { return uiHud; }
 
 	int AddScore(const int score);
 	int MinusZombieNum() { return --zombieNum; }
+
+	int GetMeleeChoice() { return meleeChoice; }
 
 	void Init() override;
 	void Release() override;
@@ -67,6 +73,7 @@ public:
 	void FixedUpdate(float dt) override;
 
 	void UpdateAwake(float dt);
+	void UpdateMeleeSelect(float dt);
 	void UpdateGame(float dt);
 	void UpdateNextWave(float dt);
 	void UpdateGameOver(float dt);

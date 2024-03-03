@@ -46,7 +46,7 @@ protected:
 
 	bool isThrowing = false;
 	float boomerangSpeed = 1000.f;
-	int boomerangDamage = 5;
+	int boomerangDamage = 20;
 
 public:
 	Player(const std::string& name = "");

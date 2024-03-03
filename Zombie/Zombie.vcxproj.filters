@@ -102,13 +102,16 @@
     <ClCompile Include="StatusUpgrade.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Melee.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Sword.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Fencing.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Melee.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -209,13 +212,16 @@
     <ClInclude Include="StatusUpgrade.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Melee.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Sword.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Fencing.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Melee.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

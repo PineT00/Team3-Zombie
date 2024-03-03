@@ -155,7 +155,7 @@
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="GameObjects\Melee.cpp" />
+    <ClCompile Include="Melee.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -195,7 +195,7 @@
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Item.h" />
     <ClInclude Include="GameObjects\ItemSpawner.h" />
-    <ClInclude Include="GameObjects\Melee.h" />
+    <ClInclude Include="Melee.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Scenes\SceneGame.h" />

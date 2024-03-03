@@ -80,7 +80,7 @@ void SceneGame::Init()
 	upgradeMenu = new StatusUpgrade("Upgrade Menu");
 	AddGo(upgradeMenu, Ui);
 
-	sf::Font& font = RES_MGR_FONT.Get("fonts/zombiecontrol.ttf");
+
 	textTitle = new TextGo("Title Text");
 	textTitle->Set(font, "Press Enter to Start!", 80, sf::Color::Red);
 	textTitle->SetOutline(sf::Color::Black, 3.f);
@@ -176,6 +176,9 @@ void SceneGame::Update(float dt)
 	case Status::Awake:
 		UpdateAwake(dt);
 		break;
+	case Status::MeleeSelect:
+		UpdateMeleeSelect(dt);
+		break;
 	case Status::Game:
 		UpdateGame(dt);
 		break;
@@ -205,9 +208,38 @@ void SceneGame::UpdateAwake(float dt)
 {
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
+		SetStatus(Status::MeleeSelect);
+	}	
+}
+
+void SceneGame::UpdateMeleeSelect(float dt)
+{
+	textTitle->Set(font, "Select Weapon!  1:Boomerang 2:Fencing 3:Sword 4:Ball", 60, sf::Color::Red);
+	textTitle->SetOrigin(Origins::MC);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		meleeChoice = 1;
 		SetStatus(Status::Game);
 	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+	{
+		meleeChoice = 2;
+		SetStatus(Status::Game);
+	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
+	{
+		meleeChoice = 3;
+		SetStatus(Status::Game);
+	}
+	else if (InputMgr::GetKeyDown(sf::Keyboard::Num4))
+	{
+		meleeChoice = 4;
+		SetStatus(Status::Game);
+	}
+	player->Reset();
 }
+
 
 void SceneGame::UpdateGame(float dt)
 {
@@ -286,6 +318,7 @@ void SceneGame::UpdateGameOver(float dt)
 		wave = 1;
 		zombieCount = 2;
 		zombieNum = zombieCount;
+		meleeChoice = 0;
 		Enter();
 		SetStatus(Status::Awake);
 	}
@@ -339,8 +372,11 @@ void SceneGame::SetStatus(Status newStatus)
 		uiHud->SetMessageActive(true);
 		FRAMEWORK.SetTimeScale(0.f);
 
-		player->SetThrowing(false);
-		FindGo("Boomerang")->SetActive(false);
+		if (meleeChoice == 1)
+		{
+			player->SetThrowing(false);
+			FindGo("Boomerang")->SetActive(false);
+		}
 		break;
 	case Status::GameOver:
 		if (score > hiscore)

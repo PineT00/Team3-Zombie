@@ -57,29 +57,42 @@ void Player::Reset()
 
 	uiHud->SetHp(hp, maxHp);
 	uiHud->SetAmmo(magazine, ammo);
-	melee = new Melee("Melee");
-	melee->Init();
-	melee->Reset();
-	melee->SetActive(false);
-	sceneGame->AddGo(melee);
 
-	sword = new Sword("Sword");
-	sword->Init();
-	sword->Reset();
-	sword->SetActive(false);
-	sceneGame->AddGo(sword);
 
-	boomerang = new Boomerang("Boomerang");
-	boomerang->Init();
-	boomerang->Reset();
-	boomerang->SetActive(false);
-	sceneGame->AddGo(boomerang);
+	switch (sceneGame->GetMeleeChoice())
+	{
+	case 1:
+		boomerang = new Boomerang("Boomerang");
+		boomerang->Init();
+		boomerang->Reset();
+		boomerang->SetActive(false);
+		sceneGame->AddGo(boomerang);
+		break;
+	case 2:
+		fencing = new Fencing("fencing");
+		fencing->Init();
+		fencing->Reset();
+		fencing->SetActive(false);
+		sceneGame->AddGo(fencing);
+		break;
+	case 3:
+		sword = new Sword("Sword");
+		sword->Init();
+		sword->Reset();
+		sword->SetActive(false);
+		sceneGame->AddGo(sword);
+		break;
+	case 4:
+		melee = new Melee("Melee");
+		melee->Init();
+		melee->Reset();
+		melee->SetActive(false);
+		sceneGame->AddGo(melee);
+		break;
+	default:
+		break;
+	}
 
-	fencing = new Fencing("fencing");
-	fencing->Init();
-	fencing->Reset();
-	fencing->SetActive(false);
-	sceneGame->AddGo(fencing);
 }
 
 void Player::Update(float dt)
@@ -152,30 +165,47 @@ void Player::Update(float dt)
 		uiHud->SetAmmo(magazine, ammo);
 	}
 
+
 	//근접 무기 공격
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right))
 	{
-		melee->SetActive(true);
-		melee->MeleeAttack(angle, MeleeSpeed, MeleeDamage);
+		if (melee != nullptr)
+		{
+			melee->SetActive(true);
+			melee->MeleeAttack(angle, MeleeSpeed, MeleeDamage);
+		}
+		else if (sword != nullptr)
+		{
+			sword->SetActive(true);
+			sword->SwordAttack(angle, MeleeSpeed, MeleeDamage);
+		}
+		else if (!isThrowing && boomerang != nullptr)
+		{
+			boomerang->SetActive(true);
+			boomerang->BoomerangAttack(look, boomerangSpeed, boomerangDamage);
+			boomerang->SetPosition(position);
+			isThrowing = true;
+		}
+		else if (fencing != nullptr)
+		{
+			fencing->SetActive(true);
+			fencing->stingAttack(look, MeleeDamage);
+		}
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::LShift))
-	{
-		sword->SetActive(true);
-		sword->SwordAttack(angle, MeleeSpeed, MeleeDamage);
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Q) && !isThrowing)
-	{
-		boomerang->SetActive(true);
-		boomerang->BoomerangAttack(look, boomerangSpeed, boomerangDamage);
-		boomerang->SetPosition(position);
 
-		isThrowing = true;
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::E))
-	{
-		fencing->SetActive(true);
-		fencing->stingAttack(look, MeleeDamage);
-	}
+
+	//if (InputMgr::GetKeyDown(sf::Keyboard::LShift))
+	//{
+
+	//}
+	//if (InputMgr::GetKeyDown(sf::Keyboard::Q) && )
+	//{
+
+	//}
+	//if (InputMgr::GetKeyDown(sf::Keyboard::E))
+	//{
+
+	//}
 
 	if (SCENE_MGR.GetDeveloperMode())
 	{
